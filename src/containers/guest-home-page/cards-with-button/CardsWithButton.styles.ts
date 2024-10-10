@@ -28,7 +28,8 @@ const side = {
     marginBottom: '8px'
   },
   description: {
-    typography: { xs: 'subtitle2' }
+    typography: { xs: 'subtitle2' },
+    fontWeight: '400 !important'
   }
 }
 

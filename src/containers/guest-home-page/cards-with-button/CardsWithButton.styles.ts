@@ -2,6 +2,7 @@ import {
   slidesRightAnimation,
   slidesLeftAnimation
 } from '~/styles/app-theme/custom-animations'
+import { theme } from '~/styles/app-theme/custom-mui.styles'
 
 const side = {
   box: {
@@ -28,8 +29,8 @@ const side = {
     marginBottom: '8px'
   },
   description: {
-    typography: { xs: 'subtitle2' },
-    fontWeight: '400 !important'
+    ...theme.typography.subtitle2,
+    fontWeight: 400
   }
 }
 

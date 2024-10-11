@@ -41,7 +41,7 @@ const PopupDialog: FC<PopupDialogProps> = ({
         onMouseOver={handleMouseOver}
         sx={styles.box}
       >
-        <IconButton sx={styles.icon}>
+        <IconButton onClick={closeModalAfterDelay} sx={styles.icon}>
           <CloseIcon />
         </IconButton>
         <Box sx={styles.contentWraper}>{content}</Box>

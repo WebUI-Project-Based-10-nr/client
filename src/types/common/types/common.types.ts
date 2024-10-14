@@ -29,4 +29,5 @@ export type File = {
   name: string
   size: number
   createdAt: string | Date
+  url: string
 }

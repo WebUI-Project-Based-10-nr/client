@@ -29,6 +29,7 @@ const SearchInput = ({ search, setSearch }) => {
             data-testid='delete-icon'
             onClick={() => {
               setSearch('')
+              setSearchInput('')
             }}
           >
             <ClearIcon color='secondary' />

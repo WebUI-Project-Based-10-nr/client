@@ -24,3 +24,9 @@ export type Sort = {
   order: SortEnum
   orderBy: string
 }
+
+export type File = {
+  name: string
+  size: number
+  createdAt: string | Date
+}

@@ -31,3 +31,7 @@ export type File = {
   createdAt: string | Date
   url: string
 }
+
+export type Link = {
+  url: string
+}

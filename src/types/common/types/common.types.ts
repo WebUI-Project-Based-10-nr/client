@@ -24,3 +24,8 @@ export type Sort = {
   order: SortEnum
   orderBy: string
 }
+
+export type Media = {
+  name: string
+  path: string
+}

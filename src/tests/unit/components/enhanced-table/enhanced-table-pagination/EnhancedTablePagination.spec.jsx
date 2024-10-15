@@ -1,5 +1,6 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { renderHook } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { describe, it, expect } from 'vitest'
 
 import EnhancedTablePagination from '~/components/enhanced-table/enhanced-table-pagination/EnhancedTablePagination'
@@ -18,22 +19,22 @@ describe('EnhancedTablePagination test', () => {
 
   it('Should change page from 1 to 2', async () => {
     const { result } = renderHook(() => usePagination({ itemsCount }))
-
     const { rerender } = render(
       <EnhancedTablePagination pagination={result.current} />
     )
     const inputField = screen.getByTestId('pagination-page-input')
 
-    fireEvent.change(inputField, { target: { value: 2 } })
+    await userEvent.clear(inputField)
+    rerender(<EnhancedTablePagination pagination={result.current} />)
 
+    await userEvent.type(inputField, '2')
     rerender(<EnhancedTablePagination pagination={result.current} />)
 
     expect(inputField.value).toBe('2')
 
     const button = screen.getByText('table.go')
 
-    fireEvent.click(button)
-
+    await userEvent.click(button)
     rerender(
       <EnhancedTablePagination
         itemsCount={itemsCount}

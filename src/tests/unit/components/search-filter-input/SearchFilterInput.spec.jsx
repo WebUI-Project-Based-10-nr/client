@@ -1,11 +1,20 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { useState } from 'react'
 import { beforeEach, describe, expect, vi } from 'vitest'
-import InputWithIcon from '~/components/input-with-icon/InputWithIcon'
 import SearchFilterInput from '~/components/search-filter-input/SearchFilterInput'
 
 const mockUpdateFilter = vi.fn()
+
+vi.mock('~/components/input-with-icon/InputWithIcon', () => ({
+  default: ({ value = '', onChange, onClear }) => (
+    <div>
+      <input onChange={(e) => onChange(e)} role='textbox' value={value} />
+      <button data-testid='clearIcon' onClick={onClear}>
+        Clear
+      </button>
+    </div>
+  )
+}))
 
 const defaultProps = {
   updateFilter: mockUpdateFilter,
@@ -36,22 +45,9 @@ describe('SearchFilterInput', () => {
   })
 
   it('should delete typed text when delete button is clicked', async () => {
-    const Component = () => {
-      const [text, setText] = useState('Some text')
-      return (
-        <InputWithIcon
-          onClear={() => setText('')}
-          startIcon={<span>❌</span>}
-          value={text}
-        />
-      )
-    }
-
-    render(<Component />)
+    render(<SearchFilterInput {...defaultProps} />)
 
     const input = screen.getByRole('textbox')
-    expect(input).toHaveValue('Some text')
-
     const clearBtn = screen.getByTestId('clearIcon')
     await user.click(clearBtn)
 

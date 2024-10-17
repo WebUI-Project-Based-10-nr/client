@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { beforeAll, describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import AppContentSwitcher from '~/components/app-content-switcher/AppContentSwitcher'
 import { defaultStyles } from '~/components/app-content-switcher/AppContentSwitcher.styles'
 
@@ -23,10 +23,6 @@ const renderSwitcher = (active = false) => {
 }
 
 describe('AppContentSwitcher', () => {
-  beforeAll(() => {
-    vi.clearAllMocks()
-  })
-
   it('should render with the correct props', () => {
     renderSwitcher(true)
 

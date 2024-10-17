@@ -12,9 +12,9 @@ const isSelected = vi.fn().mockReturnValue(false)
 
 const mockItem = {
   _id: '123456789',
-  name: 'John Smith',
-  email: 'john@email.com',
-  lastLogin: '2023-02-28'
+  name: 'Test',
+  email: 'test@email.com',
+  lastLogin: '2024-10-17'
 }
 
 const columns = [
@@ -51,7 +51,7 @@ describe('EnhancedTableRow component', () => {
   })
 
   it('renders the table row with correct data', () => {
-    expect(screen.getByText('John Smith')).toBeInTheDocument()
+    expect(screen.getByText(mockItem.name)).toBeInTheDocument()
     expect(calculatedCellValue).toHaveBeenCalled()
   })
 

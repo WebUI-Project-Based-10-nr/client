@@ -16,7 +16,10 @@ import {
   UpdateQuestionParams,
   GetQuestion,
   UpdateResourceCategory,
-  ApiMethodEnum
+  ApiMethodEnum,
+  CreateQuizParams,
+  UpdateQuizParams,
+  Quiz
 } from '~/types'
 import { createUrlPath } from '~/utils/helper-functions'
 
@@ -55,6 +58,16 @@ export const ResourceService = {
   deleteResourceCategory: async (id: string): Promise<AxiosResponse> =>
     await axiosClient.delete(
       createUrlPath(URLs.resources.resourcesCategories.delete, id)
+    ),
+  getQuiz: async (id?: string): Promise<AxiosResponse<Quiz>> =>
+    await axiosClient.get(createUrlPath(URLs.resources.quizzes.get, id)),
+  addQuiz: async (params?: CreateQuizParams): Promise<AxiosResponse> => {
+    return await axiosClient.post(URLs.resources.quizzes.post, params)
+  },
+  editQuiz: async (params?: UpdateQuizParams) =>
+    await axiosClient.patch(
+      createUrlPath(URLs.resources.quizzes.patch, params?._id),
+      params
     )
 }
 

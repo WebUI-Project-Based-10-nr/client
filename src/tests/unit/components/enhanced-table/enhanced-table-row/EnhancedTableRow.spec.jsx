@@ -8,7 +8,7 @@ import { renderWithProviders } from '~tests/test-utils'
 const handleSelectClick = vi.fn()
 const refetchData = vi.fn()
 const calculatedCellValue = vi.fn()
-const isSelected = vi.fn().mockReturnValue(false)
+const isSelected = vi.fn()
 
 const mockItem = {
   _id: '123456789',
@@ -41,6 +41,17 @@ const renderRow = () =>
     </table>
   )
 
+const openActionMenu = async () => {
+  const menuIcon = screen.getByTestId('menu-icon')
+  await userEvent.click(menuIcon)
+}
+
+const findDeleteMenuItem = async () => {
+  const menuItem = await screen.findByText('Delete')
+  expect(menuItem).toBeInTheDocument()
+  return menuItem
+}
+
 describe('EnhancedTableRow component', () => {
   beforeEach(() => {
     renderRow()
@@ -52,40 +63,53 @@ describe('EnhancedTableRow component', () => {
 
   it('renders the table row with correct data', () => {
     expect(screen.getByText(mockItem.name)).toBeInTheDocument()
-    expect(calculatedCellValue).toHaveBeenCalled()
+    expect(calculatedCellValue).toHaveBeenCalledWith(
+      mockItem,
+      expect.anything()
+    )
   })
 
   it('calls handleSelectClick when checkbox is clicked', async () => {
+    isSelected.mockReturnValueOnce(false).mockReturnValueOnce(true)
     const checkbox = screen.getByRole('checkbox')
+
+    expect(checkbox).not.toBeChecked()
+    expect(checkbox.checked).toBe(
+      isSelected(mockItem._id),
+      'Checkbox should reflect isSelected state'
+    )
+
     await userEvent.click(checkbox)
 
-    expect(handleSelectClick).toHaveBeenCalled()
+    expect(checkbox).toBeChecked()
+    expect(checkbox.checked).toBe(
+      isSelected(mockItem._id),
+      'Checkbox should reflect updated isSelected state'
+    )
+
+    expect(handleSelectClick).toHaveBeenCalledWith(
+      expect.anything(),
+      mockItem._id
+    )
   })
 
   it('opens the action menu when the menu icon is clicked', async () => {
-    const menuIcon = screen.getByTestId('menu-icon')
-    await userEvent.click(menuIcon)
-
-    const menuItem = await screen.findByText('Delete')
-    expect(menuItem).toBeInTheDocument()
+    await openActionMenu()
+    await findDeleteMenuItem()
   })
 
   it('triggers row action when clicking on the menu item', async () => {
-    const menuIcon = screen.getByTestId('menu-icon')
-    await userEvent.click(menuIcon)
+    await openActionMenu()
 
-    const menuItem = await screen.findByText('Delete')
+    const menuItem = await findDeleteMenuItem()
     await userEvent.click(menuItem)
 
     expect(rowActions[0].func).toHaveBeenCalledWith(mockItem._id)
   })
 
   it('closes the menu when "Escape" is pressed', async () => {
-    const menuIcon = screen.getByTestId('menu-icon')
-    await userEvent.click(menuIcon)
-
-    const menuItem = screen.queryByText('Delete')
-    expect(menuItem).toBeInTheDocument()
+    await openActionMenu()
+    await findDeleteMenuItem()
 
     await userEvent.keyboard('{Escape}')
 

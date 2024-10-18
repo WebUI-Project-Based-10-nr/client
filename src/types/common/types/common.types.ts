@@ -35,3 +35,8 @@ export type File = {
 export type Link = {
   url: string
 }
+
+export type Media = {
+  name: string
+  path: string
+}

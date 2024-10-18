@@ -40,6 +40,11 @@ export const URLs = {
       patch: '/resources-categories',
       post: '/resources-categories',
       delete: 'resources-categories'
+    },
+    quizzes: {
+      get: '/quizzes',
+      post: '/quizzes',
+      patch: '/quizzes'
     }
   }
 }

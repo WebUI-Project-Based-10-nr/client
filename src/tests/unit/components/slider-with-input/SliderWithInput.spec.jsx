@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
 import SliderWithInput from '~/components/slider-with-input/SliderWithInput'
@@ -9,9 +9,11 @@ const min = 0
 const max = 100
 const onChangeSlider = vi.fn()
 
+let container
+
 describe('SliderWithInput component', () => {
   beforeEach(() => {
-    render(
+    ;({ container } = render(
       <SliderWithInput
         defaultValue={defaultValue}
         max={max}
@@ -19,7 +21,7 @@ describe('SliderWithInput component', () => {
         onChange={onChangeSlider}
         title={title}
       />
-    )
+    ))
   })
 
   afterEach(() => vi.clearAllMocks())
@@ -41,9 +43,12 @@ describe('SliderWithInput component', () => {
     await userEvent.type(slider, '50')
     expect(slider).toHaveValue('50')
 
-    await new Promise((r) => setTimeout(r, 600))
-
-    expect(onChangeSlider).toHaveBeenCalled()
+    await waitFor(() => {
+      expect(container.querySelector('span')).toBeDefined()
+    })
+    await waitFor(() => {
+      expect(onChangeSlider).toHaveBeenCalled()
+    })
   })
 
   it('should update inputValue correctly when input value is empty', async () => {

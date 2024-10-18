@@ -25,6 +25,17 @@ export type Sort = {
   orderBy: string
 }
 
+export type File = {
+  name: string
+  size: number
+  createdAt: string | Date
+  url: string
+}
+
+export type Link = {
+  url: string
+}
+
 export type Media = {
   name: string
   path: string

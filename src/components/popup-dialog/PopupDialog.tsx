@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography'
 import { PaperProps } from '@mui/material'
 import common from '~/constants/translations/en/common.json'
 import question from '~/constants/translations/en/questions.json'
+import title from '~/constants/translations/en/titles.json'
 
 import useBreakpoints from '~/hooks/use-breakpoints'
 import { styles } from '~/components/popup-dialog/PopupDialog.styles'
@@ -76,7 +77,7 @@ const PopupDialog: FC<PopupDialogProps> = ({
             sx={styles.dialogTitle}
             variant='h6'
           >
-            Please Confirm
+            {title.confirmTitle}
           </Typography>
           <IconButton onClick={cancelCloseHandler} sx={styles.icon}>
             <CloseIcon />

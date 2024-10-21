@@ -1,3 +1,5 @@
+import palette from '~/styles/app-theme/app.pallete'
+
 export const styles = {
   box: {
     margin: { xs: '0 auto', sm: 0 },
@@ -19,12 +21,12 @@ export const styles = {
   },
   dialogTitle: {
     fontWeight: 'bold',
-    color: '#566970'
+    color: palette.basic.bismark
   },
   dialogDescription: {
     marginTop: '15px',
     marginBottom: '20px',
-    color: '#566970'
+    color: palette.basic.bismark
   },
   buttonContainer: {
     display: 'flex',
@@ -35,8 +37,8 @@ export const styles = {
     textTransform: 'none',
     fontWeight: 'bold',
     '&:hover': {
-      backgroundColor: '#ff1a1a',
-      color: 'black',
+      backgroundColor: palette.error[500],
+      color: palette.basic.black,
       borderStyle: 'none'
     }
   },
@@ -44,10 +46,10 @@ export const styles = {
     textTransform: 'none',
     fontWeight: 'bold',
     borderStyle: 'none',
-    backgroundColor: '#ebeef0',
+    backgroundColor: palette.basic.grey,
     '&:hover': {
-      backgroundColor: '#737373',
-      color: 'white',
+      backgroundColor: palette.basic.burntOrange,
+      color: palette.basic.white,
       borderStyle: 'none'
     }
   }

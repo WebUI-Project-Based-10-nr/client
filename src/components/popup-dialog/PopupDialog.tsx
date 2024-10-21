@@ -6,6 +6,8 @@ import CloseIcon from '@mui/icons-material/Close'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import { PaperProps } from '@mui/material'
+import common from '~/constants/translations/en/common.json'
+import question from '~/constants/translations/en/questions.json'
 
 import useBreakpoints from '~/hooks/use-breakpoints'
 import { styles } from '~/components/popup-dialog/PopupDialog.styles'
@@ -84,7 +86,7 @@ const PopupDialog: FC<PopupDialogProps> = ({
           id='confirm-dialog-description'
           sx={styles.dialogDescription}
         >
-          Are you certain you want to close? Any unsaved changes will be lost
+          {question.unsavedChanges}
         </Typography>
         <Box sx={styles.buttonContainer}>
           <Button
@@ -93,7 +95,7 @@ const PopupDialog: FC<PopupDialogProps> = ({
             sx={styles.yesButton}
             variant='contained'
           >
-            Yes
+            {common.yes}
           </Button>
           <Button
             color='secondary'
@@ -101,7 +103,7 @@ const PopupDialog: FC<PopupDialogProps> = ({
             sx={styles.noButton}
             variant='outlined'
           >
-            No
+            {common.no}
           </Button>
         </Box>
       </Dialog>

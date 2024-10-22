@@ -11,6 +11,7 @@ import useBreakpoints from '~/hooks/use-breakpoints'
 import { categoryService } from '~/services/category-service'
 import { subjectService } from '~/services/subject-service'
 import { styles } from '~/containers/tutor-home-page/subjects-step/SubjectsStep.styles'
+import { tutor } from '~/constants'
 
 const imageBlock = (
   <Box sx={styles.imgContainer}>
@@ -18,7 +19,12 @@ const imageBlock = (
   </Box>
 )
 
-const SubjectsStep = ({ btnsBox }) => {
+const SubjectsStep = ({ btnsBox, role }) => {
+  const placeholder =
+    role === tutor
+      ? 'becomeTutor.categories.mainSubjectsLabelTutor'
+      : 'becomeTutor.categories.mainInterestsLabelStudent'
+
   const { t } = useTranslation()
   const { isLaptopAndAbove, isMobile } = useBreakpoints()
 
@@ -58,7 +64,7 @@ const SubjectsStep = ({ btnsBox }) => {
             service={categoryService.getCategoriesNames}
             sx={{ mb: '20px' }}
             textFieldProps={{
-              label: t('becomeTutor.categories.mainSubjectsLabel')
+              label: t(placeholder)
             }}
             value={category?._id ?? null}
             valueField='_id'

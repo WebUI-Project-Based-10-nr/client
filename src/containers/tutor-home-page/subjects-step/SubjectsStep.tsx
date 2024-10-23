@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { SyntheticEvent, useState } from 'react'
 
 import Box from '@mui/material/Box'
 import { Typography } from '@mui/material'
@@ -11,7 +11,13 @@ import useBreakpoints from '~/hooks/use-breakpoints'
 import { categoryService } from '~/services/category-service'
 import { subjectService } from '~/services/subject-service'
 import { styles } from '~/containers/tutor-home-page/subjects-step/SubjectsStep.styles'
+import { CategoryNameInterface, SubjectNameInterface } from '~/types'
 import { tutor } from '~/constants'
+
+interface SubjectsStepProps {
+  btnsBox: JSX.Element
+  role: string
+}
 
 const imageBlock = (
   <Box sx={styles.imgContainer}>
@@ -19,7 +25,7 @@ const imageBlock = (
   </Box>
 )
 
-const SubjectsStep = ({ btnsBox, role }) => {
+const SubjectsStep = ({ btnsBox, role }: SubjectsStepProps) => {
   const placeholder =
     role === tutor
       ? 'becomeTutor.categories.mainSubjectsLabelTutor'
@@ -28,11 +34,14 @@ const SubjectsStep = ({ btnsBox, role }) => {
   const { t } = useTranslation()
   const { isLaptopAndAbove, isMobile } = useBreakpoints()
 
-  const [category, setCategory] = useState(null)
-  const [subject, setSubject] = useState(null)
+  const [category, setCategory] = useState<CategoryNameInterface | null>(null)
+  const [subject, setSubject] = useState<SubjectNameInterface | null>(null)
   const [subjectsIsFetched, setSubjectsIsFetched] = useState(false)
 
-  const onChangeCategory = (_, selectedCategory) => {
+  const onChangeCategory = (
+    _: SyntheticEvent,
+    selectedCategory: CategoryNameInterface | null
+  ) => {
     if (category?._id === selectedCategory?._id) return
 
     setCategory(selectedCategory)
@@ -40,13 +49,15 @@ const SubjectsStep = ({ btnsBox, role }) => {
     setSubjectsIsFetched(false)
   }
 
-  const onChangeSubject = (_, selectedSubject) => {
+  const onChangeSubject = (
+    _: SyntheticEvent,
+    selectedSubject: SubjectNameInterface | null
+  ) => {
     setSubject(selectedSubject)
   }
 
-  const getSubjectsNames = () => {
-    if (!category?._id) return
-    return subjectService.getSubjectsNames(category._id)
+  const getSubjectsNames = async () => {
+    return subjectService.getSubjectsNames(category?._id ?? null)
   }
 
   return (

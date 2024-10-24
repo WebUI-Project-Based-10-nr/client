@@ -1,12 +1,10 @@
 import { FC, useState } from 'react'
 import Box from '@mui/material/Box'
 import Dialog from '@mui/material/Dialog'
+import ConfirmDialog from '../confirm-dialog/ConfirmDialog'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
-import { PaperProps } from '@mui/material'
-import common from '~/constants/translations/en/common.json'
+import { DialogProps } from '@mui/material'
 import question from '~/constants/translations/en/questions.json'
 import title from '~/constants/translations/en/titles.json'
 
@@ -15,7 +13,7 @@ import { styles } from '~/components/popup-dialog/PopupDialog.styles'
 
 interface PopupDialogProps {
   content: React.ReactNode
-  paperProps: PaperProps
+  paperProps: DialogProps['PaperProps']
   timerId: NodeJS.Timeout | null
   closeModalAfterDelay: (delay?: number) => void
 }
@@ -27,17 +25,21 @@ const PopupDialog: FC<PopupDialogProps> = ({
   closeModalAfterDelay
 }) => {
   const { isMobile } = useBreakpoints()
-  const [showConfirm, setShowConfirm] = useState(false)
+  const [isConfirmDialogOpen, setConfirmDialogOpen] = useState(false)
 
   const handleMouseOver = () => timerId && clearTimeout(timerId)
   const handleMouseLeave = () => timerId && closeModalAfterDelay()
-  const handleClose = () => setShowConfirm(true)
+  const handleClose = () => closeModalAfterDelay(0)
 
-  const confirmCloseHandler = () => {
-    setShowConfirm(false)
-    closeModalAfterDelay(0)
+  const handleConfirm = () => {
+    setConfirmDialogOpen(false)
+    handleClose()
   }
-  const cancelCloseHandler = () => setShowConfirm(false)
+
+  const handleDismiss = () => {
+
+    setConfirmDialogOpen(false)
+  }
 
   return (
     <>
@@ -48,7 +50,7 @@ const PopupDialog: FC<PopupDialogProps> = ({
         fullScreen={isMobile}
         maxWidth='xl'
         onClose={handleClose}
-        open
+        open={true} 
       >
         <Box
           data-testid='popupContent'
@@ -56,61 +58,21 @@ const PopupDialog: FC<PopupDialogProps> = ({
           onMouseOver={handleMouseOver}
           sx={styles.box}
         >
-          <IconButton onClick={handleClose} sx={styles.icon}>
+          <IconButton onClick={() => setConfirmDialogOpen(true)} sx={styles.icon}>
             <CloseIcon />
           </IconButton>
           <Box sx={styles.contentWraper}>{content}</Box>
         </Box>
       </Dialog>
-      {showConfirm && (
-        <Dialog
-          PaperProps={{
-            style: styles.dialogPaper
-          }}
-          aria-describedby='confirm-dialog-description'
-          aria-labelledby='confirm-dialog-title'
-          onClose={cancelCloseHandler}
-          open={showConfirm}
-        >
-          <Box sx={styles.box}>
-            <Typography
-              id='confirm-dialog-title'
-              sx={styles.dialogTitle}
-              variant='h6'
-            >
-              {title.confirmTitle}
-            </Typography>
-            <IconButton onClick={cancelCloseHandler} sx={styles.icon}>
-              <CloseIcon />
-            </IconButton>
-            <Typography
-              id='confirm-dialog-description'
-              sx={styles.dialogDescription}
-            >
-              {question.unsavedChanges}
-            </Typography>
-            <Box sx={styles.buttonContainer}>
-              <Button
-                color='primary'
-                onClick={confirmCloseHandler}
-                sx={styles.yesButton}
-                variant='contained'
-              >
-                {common.yes}
-              </Button>
-              <Button
-                color='secondary'
-                onClick={cancelCloseHandler}
-                sx={styles.noButton}
-                variant='outlined'
-              >
-                {common.no}
-              </Button>
-            </Box>
-          </Box>
-        </Dialog>
-      )}
+      <ConfirmDialog
+        message= {question.unsavedChanges}
+        title={title.confirmTitle}
+        open={isConfirmDialogOpen}
+        onConfirm={handleConfirm}
+        onDismiss={handleDismiss}
+      />
     </>
   )
 }
+
 export default PopupDialog

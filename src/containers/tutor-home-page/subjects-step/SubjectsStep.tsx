@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState } from 'react'
+import { SyntheticEvent, useEffect, useState } from 'react'
 
 import Box from '@mui/material/Box'
 import { Typography } from '@mui/material'
@@ -36,7 +36,12 @@ const SubjectsStep = ({ btnsBox, role }: SubjectsStepProps) => {
 
   const [category, setCategory] = useState<CategoryNameInterface | null>(null)
   const [subject, setSubject] = useState<SubjectNameInterface | null>(null)
-  const [subjectsIsFetched, setSubjectsIsFetched] = useState(false)
+  const [subjectsAreFetched, setSubjectsAreFetched] = useState(false)
+
+  useEffect(() => {
+    setSubject(null)
+    setSubjectsAreFetched(false)
+  }, [category])
 
   const onChangeCategory = (
     _: SyntheticEvent,
@@ -45,8 +50,6 @@ const SubjectsStep = ({ btnsBox, role }: SubjectsStepProps) => {
     if (category?._id === selectedCategory?._id) return
 
     setCategory(selectedCategory)
-    setSubject(null)
-    setSubjectsIsFetched(false)
   }
 
   const onChangeSubject = (
@@ -82,10 +85,11 @@ const SubjectsStep = ({ btnsBox, role }: SubjectsStepProps) => {
           />
 
           <AsyncAutocomplete
-            axiosProps={{ onResponse: () => setSubjectsIsFetched(true) }}
+            axiosProps={{ onResponse: () => setSubjectsAreFetched(true) }}
             disabled={!category}
-            fetchCondition={!subjectsIsFetched}
+            fetchCondition={!subjectsAreFetched}
             fetchOnFocus
+            key={category?._id ?? 'no-category'}
             labelField='name'
             onChange={onChangeSubject}
             service={getSubjectsNames}

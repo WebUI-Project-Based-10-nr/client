@@ -62,54 +62,55 @@ const PopupDialog: FC<PopupDialogProps> = ({
           <Box sx={styles.contentWraper}>{content}</Box>
         </Box>
       </Dialog>
-      <Dialog
-        PaperProps={{
-          style: styles.dialogPaper
-        }}
-        aria-describedby='confirm-dialog-description'
-        aria-labelledby='confirm-dialog-title'
-        onClose={cancelCloseHandler}
-        open={showConfirm}
-      >
-        <Box sx={styles.box}>
-          <Typography
-            id='confirm-dialog-title'
-            sx={styles.dialogTitle}
-            variant='h6'
-          >
-            {title.confirmTitle}
-          </Typography>
-          <IconButton onClick={cancelCloseHandler} sx={styles.icon}>
-            <CloseIcon />
-          </IconButton>
-        </Box>
-        <Typography
-          id='confirm-dialog-description'
-          sx={styles.dialogDescription}
+      {showConfirm && (
+        <Dialog
+          PaperProps={{
+            style: styles.dialogPaper
+          }}
+          aria-describedby='confirm-dialog-description'
+          aria-labelledby='confirm-dialog-title'
+          onClose={cancelCloseHandler}
+          open={showConfirm}
         >
-          {question.unsavedChanges}
-        </Typography>
-        <Box sx={styles.buttonContainer}>
-          <Button
-            color='primary'
-            onClick={confirmCloseHandler}
-            sx={styles.yesButton}
-            variant='contained'
-          >
-            {common.yes}
-          </Button>
-          <Button
-            color='secondary'
-            onClick={cancelCloseHandler}
-            sx={styles.noButton}
-            variant='outlined'
-          >
-            {common.no}
-          </Button>
-        </Box>
-      </Dialog>
+          <Box sx={styles.box}>
+            <Typography
+              id='confirm-dialog-title'
+              sx={styles.dialogTitle}
+              variant='h6'
+            >
+              {title.confirmTitle}
+            </Typography>
+            <IconButton onClick={cancelCloseHandler} sx={styles.icon}>
+              <CloseIcon />
+            </IconButton>
+            <Typography
+              id='confirm-dialog-description'
+              sx={styles.dialogDescription}
+            >
+              {question.unsavedChanges}
+            </Typography>
+            <Box sx={styles.buttonContainer}>
+              <Button
+                color='primary'
+                onClick={confirmCloseHandler}
+                sx={styles.yesButton}
+                variant='contained'
+              >
+                {common.yes}
+              </Button>
+              <Button
+                color='secondary'
+                onClick={cancelCloseHandler}
+                sx={styles.noButton}
+                variant='outlined'
+              >
+                {common.no}
+              </Button>
+            </Box>
+          </Box>
+        </Dialog>
+      )}
     </>
   )
 }
-
 export default PopupDialog

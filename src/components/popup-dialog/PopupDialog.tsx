@@ -37,7 +37,6 @@ const PopupDialog: FC<PopupDialogProps> = ({
   }
 
   const handleDismiss = () => {
-
     setConfirmDialogOpen(false)
   }
 
@@ -50,7 +49,7 @@ const PopupDialog: FC<PopupDialogProps> = ({
         fullScreen={isMobile}
         maxWidth='xl'
         onClose={handleClose}
-        open={true} 
+        open
       >
         <Box
           data-testid='popupContent'
@@ -58,18 +57,21 @@ const PopupDialog: FC<PopupDialogProps> = ({
           onMouseOver={handleMouseOver}
           sx={styles.box}
         >
-          <IconButton onClick={() => setConfirmDialogOpen(true)} sx={styles.icon}>
+          <IconButton
+            onClick={() => setConfirmDialogOpen(true)}
+            sx={styles.icon}
+          >
             <CloseIcon />
           </IconButton>
           <Box sx={styles.contentWraper}>{content}</Box>
         </Box>
       </Dialog>
       <ConfirmDialog
-        message= {question.unsavedChanges}
-        title={title.confirmTitle}
-        open={isConfirmDialogOpen}
+        message={question.unsavedChanges}
         onConfirm={handleConfirm}
         onDismiss={handleDismiss}
+        open={isConfirmDialogOpen}
+        title={title.confirmTitle}
       />
     </>
   )

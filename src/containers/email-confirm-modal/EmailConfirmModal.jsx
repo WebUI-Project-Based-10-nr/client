@@ -33,44 +33,50 @@ const EmailConfirmModal = ({ confirmToken, openModal }) => {
     return <Loader size={100} />
   }
 
-  if (
-    (error && error.code === 'BAD_CONFIRM_TOKEN') ||
-    (error && error.code === 'DOCUMENT_NOT_FOUND' && response === null)
-  ) {
-    return (
-      <Box sx={styles.box}>
-        <ImgTitleDescription
-          description={t('modals.emailReject.badToken')}
-          img={imgReject}
-          style={styles}
-          title={t('modals.emailNotConfirm')}
-        />
-        <Button onClick={closeModal} sx={styles.button} variant='contained'>
-          {t('common.confirmButton')}
-        </Button>
-      </Box>
-    )
+  const handleCloseModal = (event) => {
+    event.stopPropagation()
+    closeModal()
   }
 
-  if (error && error.code === 'EMAIL_ALREADY_CONFIRMED') {
-    return (
-      <Box sx={styles.box}>
-        <ImgTitleDescription
-          description={t('modals.emailReject.alreadyConfirmed')}
-          img={imgReject}
-          style={styles}
-          title={t('modals.emailAlreadyConfirm')}
-        />
-        <Button
-          onClick={openLoginDialog}
-          sx={styles.button}
-          variant='contained'
-        >
-          {t('common.confirmButton')}
-        </Button>
-      </Box>
-    )
-  }
+  return (
+    <Box onClick={(event) => event.stopPropagation()} sx={styles.box}>
+      {error &&
+      (error.code === 'BAD_CONFIRM_TOKEN' ||
+        (error.code === 'DOCUMENT_NOT_FOUND' && response === null)) ? (
+        <>
+          <ImgTitleDescription
+            description={t('modals.emailReject.badToken')}
+            img={imgReject}
+            style={styles}
+            title={t('modals.emailNotConfirm')}
+          />
+          <Button
+            onClick={handleCloseModal}
+            sx={styles.button}
+            variant='contained'
+          >
+            {t('common.confirmButton')}
+          </Button>
+        </>
+      ) : error && error.code === 'EMAIL_ALREADY_CONFIRMED' ? (
+        <>
+          <ImgTitleDescription
+            description={t('modals.emailReject.alreadyConfirmed')}
+            img={imgReject}
+            style={styles}
+            title={t('modals.emailAlreadyConfirm')}
+          />
+          <Button
+            onClick={openLoginDialog}
+            sx={styles.button}
+            variant='contained'
+          >
+            {t('common.confirmButton')}
+          </Button>
+        </>
+      ) : null}
+    </Box>
+  )
 }
 
 export default EmailConfirmModal

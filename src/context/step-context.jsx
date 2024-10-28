@@ -41,8 +41,14 @@ const StepProvider = ({ children, initialValues, stepLabels }) => {
     [generalLabel, subjectLabel, languageLabel, photoLabel]
   )
 
+  const handleGeneralInfo = useCallback((generalInfo) => {
+    setGeneralData(generalInfo)
+  }, [])
+
   return (
-    <StepContext.Provider value={{ stepData, handleStepData }}>
+    <StepContext.Provider
+      value={{ stepData, handleStepData, handleGeneralInfo }}
+    >
       {children}
     </StepContext.Provider>
   )

@@ -22,7 +22,9 @@ const palette = {
     turquoiseDark: '#3B8587',
     turquoiseChat: '#A0F0F2',
     blueGray: '#607D8B',
-    bismark: '#546E7A'
+    bismark: '#546E7A',
+    steelGrey: '#455A64',
+    gunmetal: '#263238'
   },
   companyBlue: 'rgba(0, 167, 167, 0.2)',
   error: {

@@ -10,6 +10,9 @@ import AppAutoComplete from '~/components/app-auto-complete/AppAutoComplete'
 import axios from 'axios'
 import { useStepContext } from '~/context/step-context'
 
+const COUNTRIES_API_URL = 'https://restcountries.com/v3.1/all'
+const CITIES_API_URL = 'http://api.geonames.org/searchJSON'
+
 const GeneralInfoStep = ({ btnsBox }) => {
   const { t } = useTranslation()
   const { stepData, handleGeneralInfo } = useStepContext()
@@ -28,7 +31,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
 
   useEffect(() => {
     axios
-      .get('https://restcountries.com/v3.1/all')
+      .get(COUNTRIES_API_URL)
       .then((response) => {
         const countryNames = response.data
           .map((country) => {
@@ -46,34 +49,34 @@ const GeneralInfoStep = ({ btnsBox }) => {
       })
   }, [])
 
-  const fetchCities = (country) => {
-    const countryCode = countryCodes[country]
-
-    if (countryCode) {
-      axios
-        .get(
-          `http://api.geonames.org/searchJSON?formatted=true&country=${countryCode}&maxRows=10&username=geer_sann`
-        )
-        .then((response) => {
-          console.log(response.data)
-          const cityNames = response.data.geonames.map((city) => city.name)
-          setCities(cityNames)
-        })
-        .catch((error) => {
-          console.error('Error fetching cities:', error)
-        })
-    } else {
-      setCities([])
-    }
-  }
-
   useEffect(() => {
+    const fetchCities = (country) => {
+      const countryCode = countryCodes[country]
+
+      if (countryCode) {
+        axios
+          .get(
+            `${CITIES_API_URL}?formatted=true&country=${countryCode}&maxRows=10&username=geer_sann`
+          )
+          .then((response) => {
+            console.log(response.data)
+            const cityNames = response.data.geonames.map((city) => city.name)
+            setCities(cityNames)
+          })
+          .catch((error) => {
+            console.error('Error fetching cities:', error)
+          })
+      } else {
+        setCities([])
+      }
+    }
+
     if (data.country) {
       fetchCities(data.country)
     } else {
       setCities([])
     }
-  }, [data.country])
+  }, [data.country, countryCodes])
 
   useEffect(() => {
     handleGeneralInfo({ data })
@@ -129,6 +132,9 @@ const GeneralInfoStep = ({ btnsBox }) => {
               value={data.lastName}
             />
             <AppAutoComplete
+              isOptionEqualToValue={(option, value) =>
+                option === value || value === ''
+              }
               onChange={(event, newValue) => {
                 setData((prevData) => ({
                   ...prevData,
@@ -146,6 +152,9 @@ const GeneralInfoStep = ({ btnsBox }) => {
             <AppAutoComplete
               disabled={!data.country}
               filterOptions={filterOptions}
+              isOptionEqualToValue={(option, value) =>
+                option === value || value === ''
+              }
               onChange={(event, newValue) => {
                 setData((prevData) => ({
                   ...prevData,

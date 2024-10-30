@@ -8,7 +8,6 @@ interface UseFormProps<T> {
   validations?: Partial<{
     [K in keyof T]: (value: T[K] | string, data: T) => string | undefined
   }>
-  // validations?: Partial<UseFormValidations<T>>
   onSubmit?: (data?: T) => Promise<void>
   submitWithData?: boolean
 }

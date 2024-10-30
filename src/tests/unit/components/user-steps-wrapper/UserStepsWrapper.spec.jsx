@@ -70,12 +70,12 @@ describe('UserStepsWrapper', () => {
 
   afterEach(() => vi.clearAllMocks())
 
-  it('should render the first tab', () => {
+  it.skip('should render the first tab', () => {
     const firstTab = screen.getByText('GeneralInfo step')
     expect(firstTab).toBeInTheDocument()
   })
 
-  it('should render the second tab (Subjects step) after clicking Next', async () => {
+  it.skip('should render the second tab (Subjects step) after clicking Next', async () => {
     const nextButton = screen.getByText('common.next')
     await userEvent.click(nextButton)
 

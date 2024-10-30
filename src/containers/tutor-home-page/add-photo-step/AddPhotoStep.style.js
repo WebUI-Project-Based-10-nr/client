@@ -1,4 +1,5 @@
 import { fadeAnimation } from '~/styles/app-theme/custom-animations'
+import palette from '~/styles/app-theme/app.pallete'
 
 export const style = {
   root: {
@@ -11,6 +12,7 @@ export const style = {
   },
   img: {
     width: '100%',
+    maxHeight: '500px',
     borderRadius: '20px',
     mt: { xs: '20px', md: '0px' }
   },
@@ -26,6 +28,7 @@ export const style = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    alignSelf: 'start',
     maxWidth: '440px',
     width: '100%',
     aspectRatio: '1',
@@ -41,7 +44,6 @@ export const style = {
   rigthBox: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
     maxWidth: '432px',
     m: { md: 0, xs: '0 auto' },
     pt: 0,
@@ -52,7 +54,18 @@ export const style = {
   },
   fileUploader: {
     button: {
-      textAlign: 'center'
+      textAlign: 'center',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'start',
+      backgroundColor: palette.basic.grey,
+      border: `1px solid ${palette.basic.gray}`,
+      color: palette.basic.bismark,
+      padding: '10px 20px',
+      borderRadius: '8px',
+      cursor: 'pointer',
+      width: '100%',
+      maxWidth: '300px'
     },
     root: {
       display: 'flex',

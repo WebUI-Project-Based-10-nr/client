@@ -24,6 +24,7 @@
   "photo": {
     "imageAlt": "Your photo",
     "button": "Upload your profile photo",
+    "dragButton": "Drop file here",
     "placeholder": "Photo Preview",
     "description": "Please upload a photo that represents you and helps others recognize you.",
     "typeError": "Wrong file type. Only .png/.jpg/.jpeg files are allowed.",

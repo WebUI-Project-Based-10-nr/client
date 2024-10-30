@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import CheckIcon from '@mui/icons-material/Check'
 import { validationData } from './constants'
-import { handleFileSelection } from './fileHandlers' // Імпорт функції
+import { handleFileSelection } from './fileHandlers'
 import palette from '~/styles/app-theme/app.pallete'
 
 const AddPhotoStep = ({ btnsBox, onPhotoUpload, uploadedPhoto }) => {

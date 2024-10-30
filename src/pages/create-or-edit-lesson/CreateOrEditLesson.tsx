@@ -33,7 +33,7 @@ import {
 import {
   columns,
   removeColumnRules
-} from '~/containers/add-resources/AddAttachments.constants'
+} from '~/containers/add-resources/AddLessons.constants'
 import { styles } from '~/pages/create-or-edit-lesson/CreateOrEditLesson.styles'
 import { authRoutes } from '~/router/constants/authRoutes'
 import {
@@ -73,8 +73,8 @@ const CreateOrEditLesson = () => {
     setAlert({
       severity: snackbarVariants.success,
       message: id
-        ? t('lesson.successEditedLesson')
-        : t('lesson.successAddedLesson')
+        ? t('lessons.successEditedLesson')
+        : t('lessons.successAddedLesson')
     })
     navigate(authRoutes.myResources.root.path)
   }
@@ -213,7 +213,7 @@ const CreateOrEditLesson = () => {
           errorMsg={t(errors.title)}
           fullWidth
           inputProps={styles.input}
-          label={data.title ? '' : t('lesson.labels.title')}
+          label={data.title ? '' : t('lessons.labels.title')}
           multiline
           onChange={handleInputChange('title')}
           value={data.title}
@@ -225,7 +225,7 @@ const CreateOrEditLesson = () => {
           errorMsg={t(errors.description)}
           fullWidth
           inputProps={styles.input}
-          label={data.description ? '' : t('lesson.labels.description')}
+          label={data.description ? '' : t('lessons.labels.description')}
           multiline
           onChange={handleInputChange('description')}
           value={data.description}
@@ -240,7 +240,7 @@ const CreateOrEditLesson = () => {
           onClick={handleOpenAddAttachmentsModal}
           sx={styles.addAttachments}
         >
-          {t('lesson.labels.attachments')} <AddIcon sx={styles.addIcon} />
+          {t('lessons.labels.attachments')} <AddIcon sx={styles.addIcon} />
         </AppButton>
         <FileEditor onEdit={handleEdit} value={data.content} />
         {attachmentsList}

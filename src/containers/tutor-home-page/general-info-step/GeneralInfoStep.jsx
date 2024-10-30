@@ -9,10 +9,9 @@ import { createFilterOptions } from '@mui/material'
 import AppAutoComplete from '~/components/app-auto-complete/AppAutoComplete'
 import axios from 'axios'
 import { useStepContext } from '~/context/step-context'
-import StepImage from '~/components/step-image/StepImage'
 
-const COUNTRIES_API_URL = import.meta.env.VITE_COUNTRIES_API_URL
-const CITIES_API_URL = import.meta.env.VITE_CITIES_API_URL
+const COUNTRIES_API_URL = 'https://restcountries.com/v3.1/all'
+const CITIES_API_URL = 'http://api.geonames.org/searchJSON'
 
 const GeneralInfoStep = ({ btnsBox }) => {
   const { t } = useTranslation()
@@ -60,6 +59,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
             `${CITIES_API_URL}?formatted=true&country=${countryCode}&maxRows=10&username=geer_sann`
           )
           .then((response) => {
+            console.log(response.data)
             const cityNames = response.data.geonames.map((city) => city.name)
             setCities(cityNames)
           })
@@ -95,14 +95,13 @@ const GeneralInfoStep = ({ btnsBox }) => {
     <Box sx={styles.container}>
       <Grid alignItems='center' container justifyContent='center' spacing={4}>
         <Grid item md={6} sx={{ display: { xs: 'none', md: 'block' } }} xs={12}>
-          <Box
-            sx={{
-              ...styles.imgContainer,
-              maxWidth: '100%',
-              height: 'auto'
-            }}
-          >
-            <StepImage img={illustration} />
+          <Box sx={styles.imgContainer}>
+            <Box
+              alt='Illustration'
+              component='img'
+              src={illustration}
+              sx={{ maxWidth: '100%', height: 'auto' }}
+            />
           </Box>
         </Grid>
         <Box component='form' sx={styles.form}>

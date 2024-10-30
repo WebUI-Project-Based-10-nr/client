@@ -12,9 +12,7 @@ import { translationKey } from '~/components/find-block/find-student-constants'
 
 const TutorHome = () => {
   const { openModal } = useModalContext()
-  const { userRole } = useAppSelector((state) => state.appMain)
-
-  const isFirstLogin = true
+  const { isFirstLogin, userRole } = useAppSelector((state) => state.appMain)
 
   useEffect(() => {
     if (isFirstLogin) {

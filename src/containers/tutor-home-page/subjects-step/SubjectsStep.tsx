@@ -13,6 +13,7 @@ import { subjectService } from '~/services/subject-service'
 import { styles } from '~/containers/tutor-home-page/subjects-step/SubjectsStep.styles'
 import { CategoryNameInterface, SubjectNameInterface } from '~/types'
 import { tutor } from '~/constants'
+import { useStepContext } from '~/context/step-context'
 
 interface SubjectsStepProps {
   btnsBox: JSX.Element
@@ -56,9 +57,31 @@ const SubjectsStep = ({ btnsBox, role }: SubjectsStepProps) => {
   const [category, setCategory] = useState<CategoryNameInterface | null>(null)
   const [subject, setSubject] = useState<SubjectNameInterface | null>(null)
   const [subjectsAreFetched, setSubjectsAreFetched] = useState(false)
-  const [selectedSubjects, setSelectedSubjects] = useState<
-    SubjectNameInterface[]
-  >([])
+  const { stepData, handleStepData } = useStepContext()
+  const subjectData: SubjectNameInterface[] =
+    stepData.subjects as SubjectNameInterface[]
+
+  const handleAddSubject = (
+    _: SyntheticEvent,
+    selectedSubject: SubjectNameInterface | null
+  ) => {
+    if (selectedSubject) {
+      const isSubjectAlreadyAdded = subjectData.some(
+        (subject: SubjectNameInterface) => subject._id === selectedSubject._id
+      )
+      if (!isSubjectAlreadyAdded) {
+        const updatedSubjects = [...subjectData, selectedSubject]
+        handleStepData('subjects', updatedSubjects)
+      }
+    }
+  }
+
+  const handleDeleteChip = (chipToDelete: SubjectNameInterface) => {
+    const updatedSubjects = subjectData.filter(
+      (subject: SubjectNameInterface) => subject._id !== chipToDelete._id
+    )
+    handleStepData('subjects', updatedSubjects)
+  }
 
   useEffect(() => {
     setSubject(null)
@@ -83,19 +106,6 @@ const SubjectsStep = ({ btnsBox, role }: SubjectsStepProps) => {
 
   const getSubjectsNames = async () => {
     return subjectService.getSubjectsNames(category?._id ?? null)
-  }
-
-  const handleAddSubject = () => {
-    if (subject && !selectedSubjects.some((s) => s._id === subject._id)) {
-      setSelectedSubjects((prev) => [...prev, subject])
-      setSubject(null)
-    }
-  }
-
-  const handleDeleteChip = (chipToDelete: SubjectNameInterface) => {
-    setSelectedSubjects((prevSubjects) =>
-      prevSubjects.filter((subject) => subject._id !== chipToDelete._id)
-    )
   }
 
   return (
@@ -137,23 +147,23 @@ const SubjectsStep = ({ btnsBox, role }: SubjectsStepProps) => {
           />
           <Button
             disabled={!subject}
-            onClick={handleAddSubject}
+            onClick={(event) => handleAddSubject(event, subject)}
             sx={styles.button}
           >
             Add one more subject
           </Button>
 
           <Box sx={styles.chipsWrapper}>
-            {selectedSubjects.slice(0, 2).map((subject) => (
+            {subjectData.slice(0, 2).map((subject: CategoryNameInterface) => (
               <SubjectChip
                 key={subject._id}
                 onDelete={handleDeleteChip}
                 subject={subject}
               />
             ))}
-            {selectedSubjects.length > 2 && (
+            {subjectData.length > 2 && (
               <Chip
-                label={`+${selectedSubjects.length - 2}`}
+                label={`+${subjectData.length - 2}`}
                 sx={(styles.chip, { fontWeight: '500', borderRadius: '10px' })}
               />
             )}

@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useModalContext } from '~/context/modal-context'
 import useBreakpoints from '~/hooks/use-breakpoints'
 import useCategoriesNames from '~/hooks/use-categories-names'
 import useLoadMore from '~/hooks/use-load-more'
@@ -7,6 +8,9 @@ import useLoadMore from '~/hooks/use-load-more'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import AppToolbar from '~/components/app-toolbar/AppToolbar'
 import DirectionLink from '~/components/direction-link/DirectionLink'
+
+import CreateSubjectModal from '~/containers/find-offer/create-new-subject/CreateNewSubject'
+import NotFoundResults from '~/components/not-found-results/NotFoundResults'
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
 import SearchAutocomplete from '~/components/search-autocomplete/SearchAutocomplete'
 import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
@@ -26,6 +30,7 @@ const limits = {
 
 const Categories = () => {
   const { t } = useTranslation()
+  const { openModal } = useModalContext()
 
   const [searchQuery, setSearchQuery] = useState('')
   const params = useMemo(() => ({ name: searchQuery }), [searchQuery]) // for useLoadMore hook, maybe change ???
@@ -86,7 +91,17 @@ const Categories = () => {
         />
       </AppToolbar>
 
-      {!categories.length && !categoriesLoading && <> </>}
+      {!categories.length && !categoriesLoading && (
+        <NotFoundResults
+          buttonText={t('errorMessages.buttonRequest', {
+            name: 'category'
+          })}
+          description={t('errorMessages.tryAgainText', {
+            name: 'category'
+          })}
+          onClick={() => openModal({ component: <CreateSubjectModal /> })}
+        />
+      )}
     </PageWrapper>
   )
 }

@@ -1,11 +1,7 @@
-import {
-  CategoryNameInterface,
-  CommonEntityFields,
-  UserResponse
-} from '~/types'
+import { Category, CommonEntityFields, UserResponse } from '~/types'
 
 export interface Attachment extends CommonEntityFields {
-  category: CategoryNameInterface | null
+  category: Category
   author: Pick<UserResponse, '_id'>
   fileName: string
   size: number

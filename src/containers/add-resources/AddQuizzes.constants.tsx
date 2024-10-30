@@ -23,7 +23,7 @@ export const columns = [
     label: 'myResourcesPage.categories.category',
     field: 'category',
     calculatedCellValue: (quiz: Quiz, { t }: AdditionalPropsInterface) =>
-      quiz.category ? (
+      quiz.category && typeof quiz.category === 'object' ? (
         <AppChip labelSx={styles.categoryChipLabel} sx={styles.categoryChip}>
           {quiz.category.name}
         </AppChip>

@@ -116,11 +116,16 @@ const SearchAutocomplete = ({
         {...props}
       />
 
-      <IconButton onClick={onClear} sx={clearIconVisibility}>
+      <IconButton
+        data-testid='clear-icon-button'
+        onClick={onClear}
+        sx={clearIconVisibility}
+      >
         <ClearIcon fontSize={SizeEnum.Small} />
       </IconButton>
 
       <Button
+        data-testid='search-button'
         onClick={onSearch}
         size={isMobile ? SizeEnum.Small : SizeEnum.Large}
         sx={styles.searchBtn}

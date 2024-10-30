@@ -33,7 +33,7 @@ import {
 import {
   columns,
   removeColumnRules
-} from '~/containers/add-resources/AddLessons.constants'
+} from '~/containers/add-resources/AddAttachments.constants'
 import { styles } from '~/pages/create-or-edit-lesson/CreateOrEditLesson.styles'
 import { authRoutes } from '~/router/constants/authRoutes'
 import {

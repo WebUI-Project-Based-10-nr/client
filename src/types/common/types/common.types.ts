@@ -1,4 +1,4 @@
-import { SortEnum } from '../common.index'
+import { SortEnum } from '~/types'
 
 export type Address = {
   country: string
@@ -23,4 +23,21 @@ export type LastLogin = {
 export type Sort = {
   order: SortEnum
   orderBy: string
+}
+
+export type File = {
+  name: string
+  size: number
+  createdAt: string | Date
+  url: string
+}
+
+export type Link = {
+  name: string
+  url: string
+}
+
+export type Media = {
+  name: string
+  path: string
 }

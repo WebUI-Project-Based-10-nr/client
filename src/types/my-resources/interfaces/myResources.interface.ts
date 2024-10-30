@@ -1,4 +1,9 @@
-import { CommonEntityFields, RequestParams } from '~/types'
+import {
+  CommonEntityFields,
+  RequestParams,
+  Category,
+  Attachment
+} from '~/types'
 
 export interface Categories extends CommonEntityFields {
   name: string
@@ -19,4 +24,10 @@ export interface GetResourcesCategoriesParams extends Partial<RequestParams> {
   name?: string
 }
 
-export interface Lesson extends CommonEntityFields {}
+export interface Lesson extends CommonEntityFields {
+  title: string
+  description: string
+  author: string
+  category: Category | null
+  attachments: Attachment[]
+}

@@ -52,6 +52,11 @@ export const URLs = {
       delete: '/lessons',
       post: '/lessons',
       patch: '/lessons'
+    },
+    quizzes: {
+      get: '/quizzes',
+      post: '/quizzes',
+      patch: '/quizzes'
     }
   }
 }

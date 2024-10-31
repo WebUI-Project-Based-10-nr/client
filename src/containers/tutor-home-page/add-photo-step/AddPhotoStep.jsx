@@ -24,14 +24,6 @@ const AddPhotoStep = ({ btnsBox, onPhotoUpload, uploadedPhoto }) => {
     }
   }, [uploadedPhoto])
 
-  useEffect(() => {
-    return () => {
-      if (selectedPhoto) {
-        URL.revokeObjectURL(selectedPhoto)
-      }
-    }
-  }, [selectedPhoto])
-
   const handleUpload = () => {
     fileInputRef.current?.click()
   }
@@ -82,7 +74,11 @@ const AddPhotoStep = ({ btnsBox, onPhotoUpload, uploadedPhoto }) => {
     >
       <Box sx={style.uploadBox}>
         {selectedPhoto ? (
-          <img alt='Selected Photo' src={selectedPhoto} style={style.img} />
+          <img
+            alt='becomeTutor.photo.imageAlt'
+            src={selectedPhoto}
+            style={style.img}
+          />
         ) : (
           <Typography>{t('becomeTutor.photo.placeholder')}</Typography>
         )}
@@ -100,7 +96,7 @@ const AddPhotoStep = ({ btnsBox, onPhotoUpload, uploadedPhoto }) => {
         >
           <CloudUploadIcon style={{ marginRight: '10px' }} />
           {uploaded
-            ? t('becomeTutor.photo.uploaded')
+            ? t('becomeTutor.photo.successButton')
             : isDragOver
               ? t('becomeTutor.photo.dragButton')
               : t('becomeTutor.photo.button')}
@@ -108,7 +104,7 @@ const AddPhotoStep = ({ btnsBox, onPhotoUpload, uploadedPhoto }) => {
             <CheckIcon
               style={{
                 color: palette.basic.fruitSalad,
-                marginLeft: '45px',
+                marginLeft: '111px',
                 pointerEvents: 'none'
               }}
             />

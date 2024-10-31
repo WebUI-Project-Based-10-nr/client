@@ -24,11 +24,17 @@ interface UserStepsWrapperProps {
 
 const UserStepsWrapper: FC<UserStepsWrapperProps> = ({ userRole }) => {
   const [isUserFetched, setIsUserFetched] = useState(false)
+  const [uploadedPhoto, setUploadedPhoto] = useState<string | null>(null)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(markFirstLoginComplete())
   }, [dispatch])
+
+  const handlePhotoUpload = (photo: File) => {
+    const blobUrl = URL.createObjectURL(photo)
+    setUploadedPhoto(blobUrl)
+  }
 
   const childrenArr = [
     <GeneralInfoStep
@@ -38,7 +44,11 @@ const UserStepsWrapper: FC<UserStepsWrapperProps> = ({ userRole }) => {
     />,
     <SubjectsStep key='2' role={userRole} />,
     <LanguageStep key='3' />,
-    <AddPhotoStep key='4' />
+    <AddPhotoStep
+      key='4'
+      onPhotoUpload={handlePhotoUpload}
+      uploadedPhoto={uploadedPhoto}
+    />
   ]
 
   const stepLabels = userRole === student ? studentStepLabels : tutorStepLabels

@@ -54,6 +54,7 @@ export const style = {
   },
   fileUploader: {
     button: {
+      whiteSpace: 'nowrap',
       textAlign: 'center',
       display: 'flex',
       alignItems: 'center',

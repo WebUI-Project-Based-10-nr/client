@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Typography, Box, Grid } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import AppTextField from '~/components/app-text-field/AppTextField'
@@ -7,84 +7,31 @@ import { styles } from '~/containers/tutor-home-page/general-info-step/GeneralIn
 import illustration from '~/assets/img/tutor-home-page/become-tutor/general-info.svg'
 import { createFilterOptions } from '@mui/material'
 import AppAutoComplete from '~/components/app-auto-complete/AppAutoComplete'
-import axios from 'axios'
-import { useStepContext } from '~/context/step-context'
+import useForm from '~/hooks/use-form'
 
-const COUNTRIES_API_URL = 'https://restcountries.com/v3.1/all'
-const CITIES_API_URL = 'http://api.geonames.org/searchJSON'
+import { useStepContext } from '~/context/step-context'
+import { validations } from '~/components/user-steps-wrapper/constants'
 
 const GeneralInfoStep = ({ btnsBox }) => {
   const { t } = useTranslation()
   const { stepData, handleGeneralInfo } = useStepContext()
   const generalInfo = stepData.generalInfo
 
-  const [countries, setCountries] = useState([])
-  const [countryCodes, setCountryCodes] = useState({})
-  const [cities, setCities] = useState([])
-  const [data, setData] = useState({
-    firstName: generalInfo.data.firstName || '',
-    lastName: generalInfo.data.lastName || '',
-    country: generalInfo.data.country || '',
-    city: generalInfo.data.city || '',
-    professionalSummary: generalInfo.data.professionalSummary || ''
+  const { handleInputChange, handleBlur, data, errors } = useForm({
+    initialValues: generalInfo.data,
+    initialErrors: {
+      city: generalInfo.errors['city'] || '',
+      country: generalInfo.errors['country'] || '',
+      firstName: generalInfo.errors['firstName'] || '',
+      lastName: generalInfo.errors['lastName'] || '',
+      professionalSummary: generalInfo.errors['professionalSummary'] || ''
+    },
+    ...validations
   })
 
   useEffect(() => {
-    axios
-      .get(COUNTRIES_API_URL)
-      .then((response) => {
-        const countryNames = response.data
-          .map((country) => {
-            setCountryCodes((prevCodes) => ({
-              ...prevCodes,
-              [country.name.common]: country.cca2
-            }))
-            return country.name.common
-          })
-          .sort((a, b) => a.localeCompare(b))
-        setCountries(countryNames)
-      })
-      .catch((error) => {
-        console.error('Error fetching countries:', error)
-      })
-  }, [])
-
-  useEffect(() => {
-    const fetchCities = (country) => {
-      const countryCode = countryCodes[country]
-
-      if (countryCode) {
-        axios
-          .get(
-            `${CITIES_API_URL}?formatted=true&country=${countryCode}&maxRows=10&username=geer_sann`
-          )
-          .then((response) => {
-            console.log(response.data)
-            const cityNames = response.data.geonames.map((city) => city.name)
-            setCities(cityNames)
-          })
-          .catch((error) => {
-            console.error('Error fetching cities:', error)
-          })
-      } else {
-        setCities([])
-      }
-    }
-
-    if (data.country) {
-      fetchCities(data.country)
-    } else {
-      setCities([])
-    }
-  }, [data.country, countryCodes])
-
-  useEffect(() => {
-    handleGeneralInfo({ data })
-  }, [data, handleGeneralInfo])
-
-  const handleInputChange = (field) => (event) => {
-    setData({ ...data, [field]: event.target.value })
-  }
+    handleGeneralInfo({ data, errors })
+  }, [data, errors, handleGeneralInfo])
 
   const filterOptions = (options, state) => {
     const defaultFilterOptions = createFilterOptions()
@@ -112,7 +59,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
             <AppTextField
               fullWidth
               label={t('common.labels.firstName')}
-              onBlur={() => {}}
+              onBlur={handleBlur('firstName')}
               onChange={handleInputChange('firstName')}
               placeholder={t('common.labels.firstName')}
               required
@@ -123,7 +70,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
             <AppTextField
               fullWidth
               label={t('common.labels.lastName')}
-              onBlur={() => {}}
+              onBlur={handleBlur('lastName')}
               onChange={handleInputChange('lastName')}
               placeholder={t('common.labels.lastName')}
               required
@@ -132,17 +79,6 @@ const GeneralInfoStep = ({ btnsBox }) => {
               value={data.lastName}
             />
             <AppAutoComplete
-              isOptionEqualToValue={(option, value) =>
-                option === value || value === ''
-              }
-              onChange={(event, newValue) => {
-                setData((prevData) => ({
-                  ...prevData,
-                  country: newValue,
-                  city: ''
-                }))
-              }}
-              options={countries}
               sx={{ mb: '30px' }}
               textFieldProps={{
                 label: t('common.labels.country')
@@ -152,16 +88,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
             <AppAutoComplete
               disabled={!data.country}
               filterOptions={filterOptions}
-              isOptionEqualToValue={(option, value) =>
-                option === value || value === ''
-              }
-              onChange={(event, newValue) => {
-                setData((prevData) => ({
-                  ...prevData,
-                  city: newValue
-                }))
-              }}
-              options={cities}
+              options={[]}
               sx={{ mb: '30px' }}
               textFieldProps={{
                 label: t('common.labels.city')

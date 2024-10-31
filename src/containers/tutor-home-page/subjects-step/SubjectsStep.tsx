@@ -150,7 +150,7 @@ const SubjectsStep = ({ btnsBox, role }: SubjectsStepProps) => {
             onClick={(event) => handleAddSubject(event, subject)}
             sx={styles.button}
           >
-            Add one more subject
+            {t('becomeTutor.categories.btnText')}
           </Button>
 
           <Box sx={styles.chipsWrapper}>

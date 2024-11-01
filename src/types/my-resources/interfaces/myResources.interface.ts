@@ -2,8 +2,7 @@ import {
   CommonEntityFields,
   RequestParams,
   Category,
-  QuestionTypesEnum,
-  Answer
+  Attachment
 } from '~/types'
 
 export interface Categories extends CommonEntityFields {
@@ -27,9 +26,8 @@ export interface GetResourcesCategoriesParams extends Partial<RequestParams> {
 
 export interface Lesson extends CommonEntityFields {
   title: string
-  text: string
-  answers: Answer[]
+  description: string
   author: string
-  type: QuestionTypesEnum
   category: Category | null
+  attachments: Attachment[]
 }

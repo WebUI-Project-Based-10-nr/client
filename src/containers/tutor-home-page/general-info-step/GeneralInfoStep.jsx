@@ -13,12 +13,10 @@ import StepImage from '~/components/step-image/StepImage'
 
 const COUNTRIES_API_URL = import.meta.env.VITE_COUNTRIES_API_URL
 const CITIES_API_URL = import.meta.env.VITE_CITIES_API_URL
-
 const GeneralInfoStep = ({ btnsBox }) => {
   const { t } = useTranslation()
   const { stepData, handleGeneralInfo } = useStepContext()
   const generalInfo = stepData.generalInfo
-
   const [countries, setCountries] = useState([])
   const [countryCodes, setCountryCodes] = useState({})
   const [cities, setCities] = useState([])

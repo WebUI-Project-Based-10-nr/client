@@ -7,12 +7,12 @@ interface Validations {
 
 const validations: Validations = {
   nameField: (value) => {
-    if (value.length > 30) {
-      return 'common.errorMessages.nameLength'
-    }
-    if (!RegExp(/^[a-zа-яєії ]+$/i).test(value)) {
-      return 'common.errorMessages.nameAlphabeticOnly'
-    }
+    const lengthError = textField(2, 15)(value)
+    if (lengthError) return lengthError
+
+    const alphabeticError = isAlphabeticOnly(value)
+    if (alphabeticError) return alphabeticError
+
     return ''
   },
   numberField: (value) => {
@@ -45,6 +45,12 @@ const validations: Validations = {
   }
 }
 
+export const isAlphabeticOnly = (value: string): string | undefined => {
+  if (!/^[a-zа-яєії]+$/i.test(value)) {
+    return 'common.errorMessages.nameAlphabeticOnly'
+  }
+}
+
 export const emptyField = (
   value: string | null,
   emtyMessage = 'common.errorMessages.emptyField',
@@ -68,10 +74,10 @@ export const textField =
   (min: number, max: number) =>
   (value: string): string | undefined => {
     if (value.length !== 0 && value.length < min) {
-      return 'common.errorMessages.shortText'
+      return 'common.errorMessages.shortField'
     }
     if (value.length > max) {
-      return 'common.errorMessages.longText'
+      return 'common.errorMessages.longField'
     }
   }
 

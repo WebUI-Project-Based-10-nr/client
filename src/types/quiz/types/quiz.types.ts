@@ -1,11 +1,11 @@
-import { Question, Categories } from '~/types'
+import { Question, Categories, Category } from '~/types'
 
 export type Quiz = Categories & {
   _id?: string | undefined
   title: string
   description: string
   items: Question[]
-  category: string | { name: string } | null
+  category: Category | null
   updatedAt: Date
 }
 

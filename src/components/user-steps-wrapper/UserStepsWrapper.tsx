@@ -11,9 +11,11 @@ import SubjectsStep from '~/containers/tutor-home-page/subjects-step/SubjectsSte
 import LanguageStep from '~/containers/tutor-home-page/language-step/LanguageStep'
 
 import {
-  tutorStepLabels,
-  initialValues
+  initialValues,
+  studentStepLabels,
+  tutorStepLabels
 } from '~/components/user-steps-wrapper/constants'
+
 import { student } from '~/constants'
 
 interface UserStepsWrapperProps {
@@ -22,11 +24,17 @@ interface UserStepsWrapperProps {
 
 const UserStepsWrapper: FC<UserStepsWrapperProps> = ({ userRole }) => {
   const [isUserFetched, setIsUserFetched] = useState(false)
+  const [uploadedPhoto, setUploadedPhoto] = useState<string | null>(null)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(markFirstLoginComplete())
   }, [dispatch])
+
+  const handlePhotoUpload = (photo: File) => {
+    const blobUrl = URL.createObjectURL(photo)
+    setUploadedPhoto(blobUrl)
+  }
 
   const childrenArr = [
     <GeneralInfoStep
@@ -34,12 +42,16 @@ const UserStepsWrapper: FC<UserStepsWrapperProps> = ({ userRole }) => {
       key='1'
       setIsUserFetched={setIsUserFetched}
     />,
-    <SubjectsStep key='2' />,
+    <SubjectsStep key='2' role={userRole} />,
     <LanguageStep key='3' />,
-    <AddPhotoStep key='4' />
+    <AddPhotoStep
+      key='4'
+      onPhotoUpload={handlePhotoUpload}
+      uploadedPhoto={uploadedPhoto}
+    />
   ]
 
-  const stepLabels = userRole === student ? '' : tutorStepLabels
+  const stepLabels = userRole === student ? studentStepLabels : tutorStepLabels
 
   return (
     <StepProvider initialValues={initialValues} stepLabels={stepLabels}>

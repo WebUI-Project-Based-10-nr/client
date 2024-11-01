@@ -9,12 +9,13 @@
     "textFieldLabel": "Text here"
   },
   "languages": {
-    "title": "Velit officia consequat duis enim velit mollit. Other categories you can add in your account settings later.",
+    "title": "Please select the language in which you would like to study and cooperate.",
     "autocompleteLabel": "Your native language"
   },
   "categories": {
     "title": "Please choose the main subjects based on the category. You can add others later.",
-    "mainSubjectsLabel": "Main Tutoring Category",
+    "mainSubjectsLabelTutor": "Main Tutoring Category",
+    "mainInterestsLabelStudent": "Main Study Category",
     "subjectLabel": "Subject",
     "btnText": "Add one more subject",
     "emptyFields": "All fields must be filled",
@@ -23,6 +24,8 @@
   "photo": {
     "imageAlt": "Your photo",
     "button": "Upload your profile photo",
+    "successButton": "successfully uploaded",
+    "dragButton": "Drop file here",
     "placeholder": "Photo Preview",
     "description": "Please upload a photo that represents you and helps others recognize you.",
     "typeError": "Wrong file type. Only .png/.jpg/.jpeg files are allowed.",

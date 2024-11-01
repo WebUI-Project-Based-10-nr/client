@@ -12,10 +12,14 @@ import { styles } from '~/containers/guest-home-page/google-button/GoogleButton.
 
 const GoogleButton = ({ role, route, buttonWidth, type }) => {
   const ref = useHref(route)
-  const mediaQuery = useBreakpoints().isLaptopAndAbove ? 'md' : 'xs'
   const { closeModal } = useModalContext()
   const { setAlert } = useSnackBarContext()
   const [googleAuth] = useGoogleAuthMutation()
+
+  const { isDesktop, isLaptopAndAbove } = useBreakpoints()
+  const mediaQuery = isDesktop ? 'lg' : isLaptopAndAbove ? 'md' : 'xs'
+  const width =
+    buttonWidth[mediaQuery] || buttonWidth['md'] || buttonWidth['xs']
 
   const handleCredentialResponse = useCallback(
     async (token) => {
@@ -46,11 +50,11 @@ const GoogleButton = ({ role, route, buttonWidth, type }) => {
 
     googleId.renderButton(document.getElementById('googleButton'), {
       size: 'large',
-      width: buttonWidth[mediaQuery],
+      width: width,
       locale: 'en',
       text: `${type}_with`
     })
-  }, [handleCredentialResponse, buttonWidth, type, mediaQuery])
+  }, [handleCredentialResponse, width, type, mediaQuery])
 
   return <div id='googleButton' style={styles.google} />
 }

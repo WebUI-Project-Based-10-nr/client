@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next'
 import Box from '@mui/material/Box'
 import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
 import InfoCard from '~/components/info-card/InfoCard'
+import { useModalContext } from '~/context/modal-context'
+import SignupDialog from '~/containers/guest-home-page/signup-dialog/SignupDialog'
 
 import { guestRoutes } from '~/router/constants/guestRoutes'
 import learnImg from '~/assets/img/guest-home-page/learnImg.png'
@@ -30,10 +32,15 @@ const cardData = [
 
 const WhatCanYouDo = () => {
   const { t } = useTranslation()
+  const { openModal } = useModalContext()
+
+  const openSignupDialog = (type: UserRoleEnum) => {
+    openModal({ component: <SignupDialog type={type} /> })
+  }
 
   const cards = cardData.map((item) => (
     <InfoCard
-      action={() => {}}
+      action={() => openSignupDialog(item.actionType)}
       actionLabel={t(item.actionLabel)}
       cardWidth={460}
       description={t(item.description)}

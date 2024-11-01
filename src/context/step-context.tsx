@@ -9,10 +9,17 @@ interface GeneralData {
   errors: Record<string, string | undefined>
 }
 
+interface StepData {
+  generalData: GeneralData
+  subjects: SubjectNameInterface[]
+  language: string | null
+  photo: File[]
+}
+
 interface StepContextType {
-  stepData: Record<string, unknown>
+  stepData: StepData
   handleStepData: (
-    stepLabel: string,
+    stepLabel: keyof StepData,
     data: unknown,
     errors?: Record<string, string>
   ) => void
@@ -20,7 +27,7 @@ interface StepContextType {
 }
 
 interface StepProviderProps {
-  children: React.ReactNode
+  children: React.ReactElement
   initialValues: InitialValuesType
   stepLabels: string[]
 }
@@ -41,11 +48,13 @@ const StepProvider = ({
   const [photo, setPhoto] = useState<File[]>([])
   const [generalLabel, subjectLabel, languageLabel, photoLabel] = stepLabels
 
-  const stepData: Record<string, unknown> = {
+  const stepData: StepData = {
     [generalLabel]: generalData,
     [subjectLabel]: subject,
     [languageLabel]: language,
     [photoLabel]: photo
+  } as {
+    [K in keyof StepData]: StepData[K]
   }
 
   const handleStepData = useCallback(

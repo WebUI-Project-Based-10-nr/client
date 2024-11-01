@@ -57,27 +57,28 @@ const SubjectsStep = ({ btnsBox, role }: SubjectsStepProps) => {
   const [category, setCategory] = useState<CategoryNameInterface | null>(null)
   const [subject, setSubject] = useState<SubjectNameInterface | null>(null)
   const [subjectsAreFetched, setSubjectsAreFetched] = useState(false)
-  const { stepData, handleStepData } = useStepContext()
-  const subjectData: SubjectNameInterface[] =
-    stepData.subjects as SubjectNameInterface[]
+  const {
+    stepData: { subjects = [] },
+    handleStepData
+  } = useStepContext()
 
   const handleAddSubject = (
     _: SyntheticEvent,
     selectedSubject: SubjectNameInterface | null
   ) => {
     if (selectedSubject) {
-      const isSubjectAlreadyAdded = subjectData.some(
+      const isSubjectAlreadyAdded = subjects.some(
         (subject: SubjectNameInterface) => subject._id === selectedSubject._id
       )
       if (!isSubjectAlreadyAdded) {
-        const updatedSubjects = [...subjectData, selectedSubject]
+        const updatedSubjects = [...subjects, selectedSubject]
         handleStepData('subjects', updatedSubjects)
       }
     }
   }
 
   const handleDeleteChip = (chipToDelete: SubjectNameInterface) => {
-    const updatedSubjects = subjectData.filter(
+    const updatedSubjects = subjects.filter(
       (subject: SubjectNameInterface) => subject._id !== chipToDelete._id
     )
     handleStepData('subjects', updatedSubjects)
@@ -154,16 +155,16 @@ const SubjectsStep = ({ btnsBox, role }: SubjectsStepProps) => {
           </Button>
 
           <Box sx={styles.chipsWrapper}>
-            {subjectData.slice(0, 2).map((subject: CategoryNameInterface) => (
+            {subjects.slice(0, 2).map((subject: CategoryNameInterface) => (
               <SubjectChip
                 key={subject._id}
                 onDelete={handleDeleteChip}
                 subject={subject}
               />
             ))}
-            {subjectData.length > 2 && (
+            {subjects.length > 2 && (
               <Chip
-                label={`+${subjectData.length - 2}`}
+                label={`+${subjects.length - 2}`}
                 sx={(styles.chip, { fontWeight: '500', borderRadius: '10px' })}
               />
             )}

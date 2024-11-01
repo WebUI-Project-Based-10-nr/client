@@ -1,7 +1,7 @@
 import { SyntheticEvent, useEffect, useState } from 'react'
 
 import Box from '@mui/material/Box'
-import { Typography } from '@mui/material'
+import { Button, Chip, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 
 import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
@@ -13,16 +13,36 @@ import { subjectService } from '~/services/subject-service'
 import { styles } from '~/containers/tutor-home-page/subjects-step/SubjectsStep.styles'
 import { CategoryNameInterface, SubjectNameInterface } from '~/types'
 import { tutor } from '~/constants'
+import { useStepContext } from '~/context/step-context'
 
 interface SubjectsStepProps {
   btnsBox: JSX.Element
   role: string
 }
 
+interface ChipProps {
+  subject: SubjectNameInterface
+  onDelete: (subject: SubjectNameInterface) => void
+}
+
 const imageBlock = (
   <Box sx={styles.imgContainer}>
     <Box component='img' src={img} sx={styles.img} />
   </Box>
+)
+
+const SubjectChip = ({ subject, onDelete }: ChipProps) => (
+  <Chip
+    deleteIcon={
+      <Box sx={styles.chipDeleteIcon}>
+        <span style={{ fontSize: '20px', color: '#455A64' }}>x</span>
+      </Box>
+    }
+    key={subject._id}
+    label={subject.name}
+    onDelete={() => onDelete(subject)}
+    sx={styles.chip}
+  />
 )
 
 const SubjectsStep = ({ btnsBox, role }: SubjectsStepProps) => {
@@ -37,6 +57,32 @@ const SubjectsStep = ({ btnsBox, role }: SubjectsStepProps) => {
   const [category, setCategory] = useState<CategoryNameInterface | null>(null)
   const [subject, setSubject] = useState<SubjectNameInterface | null>(null)
   const [subjectsAreFetched, setSubjectsAreFetched] = useState(false)
+  const {
+    stepData: { subjects = [] },
+    handleStepData
+  } = useStepContext()
+
+  const handleAddSubject = (
+    _: SyntheticEvent,
+    selectedSubject: SubjectNameInterface | null
+  ) => {
+    if (selectedSubject) {
+      const isSubjectAlreadyAdded = subjects.some(
+        (subject: SubjectNameInterface) => subject._id === selectedSubject._id
+      )
+      if (!isSubjectAlreadyAdded) {
+        const updatedSubjects = [...subjects, selectedSubject]
+        handleStepData('subjects', updatedSubjects)
+      }
+    }
+  }
+
+  const handleDeleteChip = (chipToDelete: SubjectNameInterface) => {
+    const updatedSubjects = subjects.filter(
+      (subject: SubjectNameInterface) => subject._id !== chipToDelete._id
+    )
+    handleStepData('subjects', updatedSubjects)
+  }
 
   useEffect(() => {
     setSubject(null)
@@ -100,6 +146,29 @@ const SubjectsStep = ({ btnsBox, role }: SubjectsStepProps) => {
             value={subject?._id ?? null}
             valueField='_id'
           />
+          <Button
+            disabled={!subject}
+            onClick={(event) => handleAddSubject(event, subject)}
+            sx={styles.button}
+          >
+            {t('becomeTutor.categories.btnText')}
+          </Button>
+
+          <Box sx={styles.chipsWrapper}>
+            {subjects.slice(0, 2).map((subject: CategoryNameInterface) => (
+              <SubjectChip
+                key={subject._id}
+                onDelete={handleDeleteChip}
+                subject={subject}
+              />
+            ))}
+            {subjects.length > 2 && (
+              <Chip
+                label={`+${subjects.length - 2}`}
+                sx={(styles.chip, { fontWeight: '500', borderRadius: '10px' })}
+              />
+            )}
+          </Box>
         </Box>
         {btnsBox}
       </Box>

@@ -6,7 +6,6 @@ import serviceIcon from '~/assets/img/student-home-page/service_icon.png'
 import { CategoryInterface } from '~/types'
 import { authRoutes } from '~/router/constants/authRoutes'
 import { categoryService } from '~/services/category-service'
-//import { useAppSelector } from '~/hooks/use-redux'
 import useLoadMore from '~/hooks/use-load-more'
 import useBreakpoints from '~/hooks/use-breakpoints'
 import { getScreenBasedLimit } from '~/utils/helper-functions'
@@ -14,7 +13,6 @@ import { itemsLoadLimit } from '~/constants'
 
 const CategoriesList = () => {
   const { t } = useTranslation()
-  //const { userRole } = useAppSelector((state) => state.appMain)
   const breakpoints = useBreakpoints()
   const cardsLimit = getScreenBasedLimit(breakpoints, itemsLoadLimit)
 
@@ -34,18 +32,15 @@ const CategoriesList = () => {
     limit: cardsLimit
   })
 
-  //   const oppositeRole = getOpositeRole(userRole)
-  //   console.log(oppositeRole)
-
   const cards = useMemo(
     () =>
       categories.map((item: CategoryInterface) => {
         return (
           <CardWithLink
-            description={`${t('categoriesPage.offers')}`}
+            description={`16 ${t('categoriesPage.offers')}`}
             img={serviceIcon}
             key={item._id}
-            link={`${authRoutes.categories.path}?categoryId=${item._id}`}
+            link={`${authRoutes.subjects.path}?categoryId=${item._id}`}
             title={item.name}
           />
         )

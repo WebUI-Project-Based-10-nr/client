@@ -71,7 +71,7 @@ describe('UserStepsWrapper', () => {
   afterEach(() => vi.clearAllMocks())
 
   it('should render the first tab', () => {
-    const firstTab = screen.getByText('GeneralInfo step')
+    const firstTab = screen.getByText(/becomeTutor.generalInfo.title/)
     expect(firstTab).toBeInTheDocument()
   })
 
@@ -79,7 +79,7 @@ describe('UserStepsWrapper', () => {
     const nextButton = screen.getByText('common.next')
     await userEvent.click(nextButton)
 
-    const secondTab = screen.getByText('Subjects step')
+    const secondTab = screen.getByText(/becomeTutor.categories.title/)
     expect(secondTab).toBeInTheDocument()
   })
 

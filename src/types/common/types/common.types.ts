@@ -1,4 +1,4 @@
-import { SortEnum } from '../common.index'
+import { SortEnum } from '~/types'
 
 export type Address = {
   country: string

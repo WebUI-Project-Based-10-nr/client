@@ -12,6 +12,7 @@ import { categoryService } from '~/services/category-service'
 import { getScreenBasedLimit } from '~/utils/helper-functions'
 import CreateSubjectModal from '~/containers/find-offer/create-new-subject/CreateNewSubject'
 import NotFoundResults from '~/components/not-found-results/NotFoundResults'
+import OfferRequestBlock from '~/containers/find-offer/offer-request-block/OfferRequestBlock'
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
 import CardWithLink from '~/components/card-with-link/CardWithLink'
 import CardsList from '~/components/cards-list/CardsList'
@@ -81,8 +82,9 @@ const Categories = () => {
   return (
     <PageWrapper>
       <OfferRequestBlock />
+
       {!categories ? (
-        <NotFoundResults
+ <NotFoundResults
           buttonText={t('errorMessages.buttonRequest', {
             name: 'category'
           })}

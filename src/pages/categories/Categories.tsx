@@ -3,6 +3,7 @@ import { useModalContext } from '~/context/modal-context'
 
 import CreateSubjectModal from '~/containers/find-offer/create-new-subject/CreateNewSubject'
 import NotFoundResults from '~/components/not-found-results/NotFoundResults'
+import OfferRequestBlock from '~/containers/find-offer/offer-request-block/OfferRequestBlock'
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
 
 const categories = null
@@ -13,6 +14,8 @@ const Categories = () => {
 
   return (
     <PageWrapper>
+      <OfferRequestBlock />
+
       {!categories && (
         <NotFoundResults
           buttonText={t('errorMessages.buttonRequest', {

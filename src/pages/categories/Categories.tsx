@@ -5,8 +5,6 @@ import { useModalContext } from '~/context/modal-context'
 import useBreakpoints from '~/hooks/use-breakpoints'
 import useLoadMore from '~/hooks/use-load-more'
 
-//import { SvgIconProps } from '@mui/material'
-//import serviceIcon from '~/assets/img/student-home-page/service_icon.png'
 import { itemsLoadLimit } from '~/constants'
 import { authRoutes } from '~/router/constants/authRoutes'
 import { CategoryInterface } from '~/types'
@@ -17,6 +15,7 @@ import NotFoundResults from '~/components/not-found-results/NotFoundResults'
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
 import CardWithLink from '~/components/card-with-link/CardWithLink'
 import CardsList from '~/components/cards-list/CardsList'
+import OfferRequestBlock from '~/containers/find-offer/offer-request-block/OfferRequestBlock'
 import { categoryIcons } from '~/constants/icon-map'
 
 type CategoryIconKey = keyof typeof categoryIcons
@@ -81,7 +80,8 @@ const Categories = () => {
 
   return (
     <PageWrapper>
-      {!categories && !categoriesLoading ? (
+      <OfferRequestBlock />
+      {!categories ? (
         <NotFoundResults
           buttonText={t('errorMessages.buttonRequest', {
             name: 'category'

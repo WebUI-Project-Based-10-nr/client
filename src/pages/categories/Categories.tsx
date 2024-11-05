@@ -13,10 +13,10 @@ import { categoryService } from '~/services/category-service'
 import { getScreenBasedLimit } from '~/utils/helper-functions'
 import CreateSubjectModal from '~/containers/find-offer/create-new-subject/CreateNewSubject'
 import NotFoundResults from '~/components/not-found-results/NotFoundResults'
+import OfferRequestBlock from '~/containers/find-offer/offer-request-block/OfferRequestBlock'
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
 import CardWithLink from '~/components/card-with-link/CardWithLink'
 import CardsList from '~/components/cards-list/CardsList'
-import OfferRequestBlock from '~/containers/find-offer/offer-request-block/OfferRequestBlock'
 import { categoryIcons } from '~/constants/icon-map'
 
 type CategoryIconKey = keyof typeof categoryIcons
@@ -51,17 +51,17 @@ const Categories = () => {
         const IconComponent =
           categoryIcons[item.name as CategoryIconKey] || categoryIcons.Language
 
-        const renderedIcon = iconDbUrl
-          ? iconDb
-          : IconComponent && (
-              <IconComponent
-                fontSize='large'
-                sx={{
-                  color: item.appearance.color || palette.basic.blueGray,
-                  paddingRight: '12px'
-                }}
-              />
-            )
+        const renderedIcon = iconDbUrl ? (
+          iconDb
+        ) : (
+          <IconComponent
+            fontSize='large'
+            sx={{
+              color: item.appearance.color || palette.basic.blueGray,
+              paddingRight: '12px'
+            }}
+          />
+        )
 
         return (
           <CardWithLink

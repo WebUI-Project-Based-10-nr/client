@@ -1,10 +1,11 @@
-import React, { useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useModalContext } from '~/context/modal-context'
 import useBreakpoints from '~/hooks/use-breakpoints'
 import useLoadMore from '~/hooks/use-load-more'
 
+import palette from '~/styles/app-theme/app.pallete'
 import { itemsLoadLimit } from '~/constants'
 import { authRoutes } from '~/router/constants/authRoutes'
 import { CategoryInterface } from '~/types'
@@ -45,25 +46,22 @@ const Categories = () => {
   const cards = useMemo(
     () =>
       categories.map((item: CategoryInterface) => {
-        const defaultIcon =
-          'https://www.svgrepo.com/show/508699/landscape-placeholder.svg'
         const iconDb = item.appearance.icon
         const iconDbUrl = iconDb && iconDb.includes('http')
-        const IconComponent = categoryIcons[item.name as CategoryIconKey]
+        const IconComponent =
+          categoryIcons[item.name as CategoryIconKey] || categoryIcons.Language
 
-        const renderedIcon = iconDbUrl ? (
-          iconDb
-        ) : IconComponent ? (
-          <IconComponent
-            fontSize='large'
-            sx={{
-              color: item.appearance.color || '#808080',
-              paddingRight: '12px'
-            }}
-          />
-        ) : (
-          defaultIcon
-        )
+        const renderedIcon = iconDbUrl
+          ? iconDb
+          : IconComponent && (
+              <IconComponent
+                fontSize='large'
+                sx={{
+                  color: item.appearance.color || palette.basic.blueGray,
+                  paddingRight: '12px'
+                }}
+              />
+            )
 
         return (
           <CardWithLink
@@ -81,7 +79,7 @@ const Categories = () => {
   return (
     <PageWrapper>
       <OfferRequestBlock />
-      {!categories ? (
+      {!categories || categories.length === 0 ? (
         <NotFoundResults
           buttonText={t('errorMessages.buttonRequest', {
             name: 'category'

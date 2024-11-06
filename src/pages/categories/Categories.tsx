@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useModalContext } from '~/context/modal-context'
@@ -27,19 +27,13 @@ const Categories = () => {
   const { openModal } = useModalContext()
   const cardsLimit = getScreenBasedLimit(breakpoints, itemsLoadLimit)
 
-  const getCategories = useCallback(
-    (data?: Pick<CategoryInterface, 'name'>) =>
-      categoryService.getCategories(data),
-    []
-  )
-
   const {
     data: categories,
     loading: categoriesLoading,
     loadMore,
     isExpandable
   } = useLoadMore<CategoryInterface, Pick<CategoryInterface, 'name'>>({
-    service: getCategories,
+    service: categoryService.getCategories,
     limit: cardsLimit
   })
 

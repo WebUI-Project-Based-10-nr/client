@@ -7,11 +7,10 @@ interface SendMessageButtonProps {
 
 const SendMessageButton = ({ onClick }: SendMessageButtonProps) => {
   const { t } = useTranslation()
-  const label = t('common.labels.sendMessage')
 
   return (
     <AppButton fullWidth onClick={onClick}>
-      {label}
+      {t('common.labels.sendMessage')}
     </AppButton>
   )
 }

@@ -22,7 +22,7 @@ const OfferDetails: React.FC<OfferDetailsProps> = ({
   title
 }) => {
   return (
-    <Box sx={{ flex: 1 }}>
+    <Box sx={styles.container}>
       <Typography sx={styles.title} variant='h6'>
         {title}
       </Typography>

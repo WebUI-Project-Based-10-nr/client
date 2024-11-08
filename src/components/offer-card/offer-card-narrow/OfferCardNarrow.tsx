@@ -1,10 +1,10 @@
 import { Box, Divider, Typography } from '@mui/material'
 import { Offer } from '~/types'
-import { styles } from './OfferCardSquare.styles'
+import { styles } from './OfferCardNarrow.styles'
 
 import AppCard from '~/components/app-card/AppCard'
 import AppRatingMobile from '~/components/app-rating-mobile/AppRatingMobile'
-import Bookmark from '~/components/offer-card/bookmark/Bookmark'
+import BookmarkButton from '~/components/offer-card/buttons/bookmark-button/BookmarkButton'
 import Price from '~/components/offer-card/price/Price'
 import SendMessageButton from '~/components/offer-card/buttons/SendMessageButton'
 import SubjectLevelWithlabels from '~/components/subject-level-with-labels/SubjectLevelWithLabels'
@@ -56,7 +56,7 @@ const OfferCardSquare: React.FC<OfferCardProps> = ({
   return (
     <AppCard sx={styles.appCard}>
       <Box sx={styles.container}>
-        <Bookmark {...bookmarkProps} />
+        <BookmarkButton {...bookmarkProps} />
 
         <UserProfileInfo {...userProfileInfoProps} />
 

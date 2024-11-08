@@ -3,7 +3,7 @@ import { Offer } from '~/types'
 import { styles } from '~/components/offer-card/offer-card-wide/OfferCardWide.styles'
 
 import AppCard from '~/components/app-card/AppCard'
-import Bookmark from '~/components/offer-card/bookmark/Bookmark'
+import BookmarkButton from '~/components/offer-card/buttons/bookmark-button/BookmarkButton'
 import OfferDetails from '~/components/offer-card/offer-card-wide/offer-details/OfferDetails'
 import Price from '~/components/offer-card/price/Price'
 import SendMessageButton from '~/components/offer-card/buttons/SendMessageButton'
@@ -78,7 +78,7 @@ const OfferCardWide: React.FC<OfferCardProps> = ({
           </Box>
         </Box>
 
-        <Bookmark {...bookmarkProps} />
+        <BookmarkButton {...bookmarkProps} />
       </Box>
     </AppCard>
   )

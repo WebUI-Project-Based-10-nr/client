@@ -1,6 +1,6 @@
 import { IconButton } from '@mui/material'
 import { TurnedIn, TurnedInNot } from '@mui/icons-material'
-import { styles } from './Bookmark.styles'
+import { styles } from '~/components/offer-card/buttons/bookmark-button/BookmarkButton.styles'
 
 interface BookmarkProps {
   id: string
@@ -14,11 +14,7 @@ const Bookmark: React.FC<BookmarkProps> = ({
   onBookmarkClick
 }) => {
   return (
-    <IconButton
-      data-testid='iconButton'
-      onClick={() => onBookmarkClick(id)}
-      sx={styles.bookmarkButton}
-    >
+    <IconButton onClick={() => onBookmarkClick(id)} sx={styles.bookmarkButton}>
       {isBookmarked ? <TurnedIn /> : <TurnedInNot />}
     </IconButton>
   )

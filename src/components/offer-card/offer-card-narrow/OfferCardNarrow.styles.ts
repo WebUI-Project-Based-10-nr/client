@@ -1,12 +1,8 @@
 export const styles = {
   appCard: {
     width: '260px',
-    padding: '24px 20px'
-  },
-
-  container: {
+    padding: '24px 20px',
     position: 'relative',
-    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     gap: '16px'
@@ -56,5 +52,9 @@ export const styles = {
     display: 'flex',
     flexDirection: 'column',
     gap: '16px'
+  },
+
+  bookmarkButton: {
+    top: '12px'
   }
 }

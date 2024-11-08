@@ -55,7 +55,8 @@ const OfferCardWide: React.FC<OfferCardProps> = ({
   const bookmarkProps = {
     id: _id,
     isBookmarked,
-    onBookmarkClick
+    onBookmarkClick,
+    style: styles.bookmarkButton
   }
 
   // TODO: add chat opening logic
@@ -63,23 +64,21 @@ const OfferCardWide: React.FC<OfferCardProps> = ({
 
   return (
     <AppCard sx={styles.appCard}>
-      <Box sx={styles.wrapper}>
-        <UserProfileInfo {...userProfileInfoProps} />
+      <UserProfileInfo {...userProfileInfoProps} />
 
-        <OfferDetails {...offerDetailsProps} />
+      <OfferDetails {...offerDetailsProps} />
 
-        <Box>
-          <Price price={price} />
+      <Box>
+        <Price price={price} />
 
-          <Box sx={styles.buttons}>
-            <ViewDetailsButton />
+        <Box sx={styles.buttons}>
+          <ViewDetailsButton />
 
-            <SendMessageButton onClick={handleChatOpening} />
-          </Box>
+          <SendMessageButton onClick={handleChatOpening} />
         </Box>
-
-        <BookmarkButton {...bookmarkProps} />
       </Box>
+
+      <BookmarkButton {...bookmarkProps} />
     </AppCard>
   )
 }

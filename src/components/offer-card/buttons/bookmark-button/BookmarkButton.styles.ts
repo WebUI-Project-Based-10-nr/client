@@ -1,8 +1,7 @@
 export const styles = {
   bookmarkButton: {
     position: 'absolute',
-    top: '-10px',
-    right: '-14px',
+    right: '6px',
     color: 'basic.black'
   }
 }

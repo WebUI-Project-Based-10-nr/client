@@ -6,15 +6,20 @@ interface BookmarkProps {
   id: string
   isBookmarked: boolean
   onBookmarkClick: (id: string) => void
+  style: object
 }
 
 const Bookmark: React.FC<BookmarkProps> = ({
   id,
   isBookmarked,
-  onBookmarkClick
+  onBookmarkClick,
+  style
 }) => {
   return (
-    <IconButton onClick={() => onBookmarkClick(id)} sx={styles.bookmarkButton}>
+    <IconButton
+      onClick={() => onBookmarkClick(id)}
+      sx={{ ...styles.bookmarkButton, ...style }}
+    >
       {isBookmarked ? <TurnedIn /> : <TurnedInNot />}
     </IconButton>
   )

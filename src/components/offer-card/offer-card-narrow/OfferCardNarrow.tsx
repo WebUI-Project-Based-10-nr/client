@@ -47,7 +47,8 @@ const OfferCardSquare: React.FC<OfferCardProps> = ({
   const bookmarkProps = {
     id: _id,
     isBookmarked,
-    onBookmarkClick
+    onBookmarkClick,
+    style: styles.bookmarkButton
   }
 
   // TODO: add chat opening logic
@@ -55,36 +56,34 @@ const OfferCardSquare: React.FC<OfferCardProps> = ({
 
   return (
     <AppCard sx={styles.appCard}>
-      <Box sx={styles.container}>
-        <BookmarkButton {...bookmarkProps} />
+      <BookmarkButton {...bookmarkProps} />
 
-        <UserProfileInfo {...userProfileInfoProps} />
+      <UserProfileInfo {...userProfileInfoProps} />
 
-        <Typography sx={styles.description}>{title}</Typography>
+      <Typography sx={styles.description}>{title}</Typography>
 
-        <Divider />
+      <Divider />
 
-        <SubjectLevelWithlabels
-          color={category.appearance.color}
-          proficiencyLevel={proficiencyLevel}
-          subject={subject.name}
-        />
+      <SubjectLevelWithlabels
+        color={category.appearance.color}
+        proficiencyLevel={proficiencyLevel}
+        subject={subject.name}
+      />
 
-        <Box sx={styles.cardContent}>
-          <Box sx={styles.priceContainer}>
-            <Price price={price} />
+      <Box sx={styles.cardContent}>
+        <Box sx={styles.priceContainer}>
+          <Price price={price} />
 
-            <AppRatingMobile
-              reviewsCount={author.totalReviews[authorRole]}
-              value={author.averageRating[authorRole]}
-            />
-          </Box>
+          <AppRatingMobile
+            reviewsCount={author.totalReviews[authorRole]}
+            value={author.averageRating[authorRole]}
+          />
+        </Box>
 
-          <Box sx={styles.buttonContainer}>
-            <ViewDetailsButton />
+        <Box sx={styles.buttonContainer}>
+          <ViewDetailsButton />
 
-            <SendMessageButton onClick={handleChatOpening} />
-          </Box>
+          <SendMessageButton onClick={handleChatOpening} />
         </Box>
       </Box>
     </AppCard>

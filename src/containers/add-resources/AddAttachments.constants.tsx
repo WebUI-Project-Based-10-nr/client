@@ -14,7 +14,7 @@ import {
 
 export const columns = [
   {
-    label: 'myResourcesPage.attachments.file',
+    label: 'myResourcesPage.attachment.file',
     field: 'fileName',
     calculatedCellValue: (attachment: Attachment) => (
       <IconExtensionWithTitle
@@ -42,7 +42,7 @@ export const columns = [
       )
   },
   {
-    label: 'myResourcesPage.attachments.lastUpdate',
+    label: 'myResourcesPage.attachment.lastUpdate',
     field: 'updatedAt',
     calculatedCellValue: (attachment: Attachment) =>
       getFormattedDate({ date: attachment.updatedAt })

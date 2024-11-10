@@ -29,14 +29,12 @@ import { createUrlPath } from '~/utils/helper-functions'
 export const ResourceService = {
   getQuestions: (
     params?: GetResourcesParams
-  ): Promise<AxiosResponse<ItemsWithCount<Question>>> => {
-    return axiosClient.get(URLs.resources.questions.get, { params })
-  },
+  ): Promise<AxiosResponse<ItemsWithCount<Question>>> =>
+    axiosClient.get(URLs.resources.questions.get, { params }),
   getQuestion: async (id?: string): Promise<AxiosResponse<GetQuestion>> =>
     await axiosClient.get(createUrlPath(URLs.resources.questions.get, id)),
-  createQuestion: async (data?: CreateQuestionData): Promise<AxiosResponse> => {
-    return await axiosClient.post(URLs.resources.questions.post, data)
-  },
+  createQuestion: async (data?: CreateQuestionData): Promise<AxiosResponse> =>
+    await axiosClient.post(URLs.resources.questions.post, data),
   updateQuestion: async (params?: UpdateQuestionParams) =>
     await axiosClient.patch(
       createUrlPath(URLs.resources.questions.patch, params?.id),
@@ -49,9 +47,8 @@ export const ResourceService = {
 
   getResourcesCategories: (
     params?: GetResourcesCategoriesParams
-  ): Promise<AxiosResponse<ItemsWithCount<Categories>>> => {
-    return axiosClient.get(URLs.resources.resourcesCategories.get, { params })
-  },
+  ): Promise<AxiosResponse<ItemsWithCount<Categories>>> =>
+    axiosClient.get(URLs.resources.resourcesCategories.get, { params }),
   getResourcesCategoriesNames: (): Promise<
     AxiosResponse<CategoryNameInterface[]>
   > => axiosClient.get(URLs.resources.resourcesCategories.getNames),
@@ -66,28 +63,29 @@ export const ResourceService = {
 
   getAttachments: async (
     params?: GetResourcesParams
-  ): Promise<AxiosResponse<ItemsWithCount<Attachment>>> => {
-    return await axiosClient.get(URLs.resources.attachments.get, { params })
-  },
+  ): Promise<AxiosResponse<ItemsWithCount<Attachment>>> =>
+    await axiosClient.get(URLs.resources.attachments.get, { params }),
 
-  getLesson: async (id?: string): Promise<AxiosResponse<Lesson>> => {
-    return await axiosClient.get(createUrlPath(URLs.resources.lessons.get, id))
-  },
-  addLesson: async (data: LessonData): Promise<AxiosResponse> => {
-    return await axiosClient.post(URLs.resources.lessons.post, data)
-  },
-  editLesson: async (data: LessonData, id?: string): Promise<AxiosResponse> => {
-    return await axiosClient.patch(
+  getLessons: async (
+    params?: GetResourcesParams
+  ): Promise<AxiosResponse<ItemsWithCount<Lesson>>> =>
+    axiosClient.get(URLs.resources.lessons.get, { params }),
+  getLesson: async (id?: string): Promise<AxiosResponse<Lesson>> =>
+    await axiosClient.get(createUrlPath(URLs.resources.lessons.get, id)),
+  addLesson: async (data: LessonData): Promise<AxiosResponse> =>
+    await axiosClient.post(URLs.resources.lessons.post, data),
+  editLesson: async (data: LessonData, id?: string): Promise<AxiosResponse> =>
+    await axiosClient.patch(
       createUrlPath(URLs.resources.lessons.patch, id),
       data
-    )
-  },
+    ),
+  deleteLesson: async (id: string): Promise<AxiosResponse> =>
+    await axiosClient.delete(createUrlPath(URLs.resources.lessons.delete, id)),
 
   getQuiz: async (id?: string): Promise<AxiosResponse<Quiz>> =>
     await axiosClient.get(createUrlPath(URLs.resources.quizzes.get, id)),
-  addQuiz: async (params?: CreateQuizParams): Promise<AxiosResponse> => {
-    return await axiosClient.post(URLs.resources.quizzes.post, params)
-  },
+  addQuiz: async (params?: CreateQuizParams): Promise<AxiosResponse> =>
+    await axiosClient.post(URLs.resources.quizzes.post, params),
   editQuiz: async (params?: UpdateQuizParams) =>
     await axiosClient.patch(
       createUrlPath(URLs.resources.quizzes.patch, params?._id),

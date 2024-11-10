@@ -25,6 +25,7 @@ export interface GetResourcesCategoriesParams extends Partial<RequestParams> {
 }
 
 export interface Lesson extends CommonEntityFields {
+  text: string
   title: string
   description: string
   author: string

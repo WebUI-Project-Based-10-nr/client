@@ -24,7 +24,8 @@ export const defaultResponse = {
   updatedAt: '',
   _id: '',
   content: '',
-  category: null
+  category: null,
+  text: ''
 }
 
 export const myResourcesPath = '/my-resources'

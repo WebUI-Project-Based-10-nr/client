@@ -7,5 +7,7 @@
   "errorMessages": {
     "title": "Please provide a title",
     "description": "Please provide a description"
-  }
+  },
+  "successAddedLesson": "Lesson was successfully created",
+  "successEditedLesson": "Lesson was successfully edited"
 }

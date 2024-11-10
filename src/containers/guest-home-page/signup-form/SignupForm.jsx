@@ -7,13 +7,16 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
+import infoImg from '~/assets/img/guest-home-page/info.svg'
 import AppTextField from '~/components/app-text-field/AppTextField'
 import AppButton from '~/components/app-button/AppButton'
 import HashLink from '~/components/hash-link/HashLink'
 import useInputVisibility from '~/hooks/use-input-visibility'
+import NotificationModal from '../notification-modal/NotificationModal'
 import { guestRoutes } from '~/router/constants/guestRoutes'
 
 import { styles } from '~/containers/guest-home-page/signup-form/SignupForm.styles'
+import { useModalContext } from '~/context/modal-context'
 
 const SignupForm = ({
   handleSubmit,
@@ -23,6 +26,7 @@ const SignupForm = ({
   errors
 }) => {
   const { t } = useTranslation()
+  const { closeModal, openModal } = useModalContext()
   const [isAgreementChecked, setIsAgreementChecked] = useState(false)
   const { authLoading } = useSelector((state) => state.appMain)
 
@@ -35,6 +39,28 @@ const SignupForm = ({
 
   const handleOnAgreementChange = () => {
     setIsAgreementChecked(!isAgreementChecked)
+  }
+
+  const infoPopupDescription = (
+    <>
+      {t('signup.confirmEmailMessage')} <strong>{data.email}</strong>{' '}
+      {t('signup.confirmEmailDesc')}
+    </>
+  )
+
+  const handleSignupSubmit = () => {
+    handleSubmit()
+    openModal({
+      component: (
+        <NotificationModal
+          buttonTitle={t('common.confirmButton')}
+          description={infoPopupDescription}
+          img={infoImg}
+          onClose={closeModal}
+          title={t('signup.confirmEmailTitle')}
+        />
+      )
+    })
   }
 
   const { privacyPolicy, termOfUse } = guestRoutes
@@ -73,7 +99,7 @@ const SignupForm = ({
   )
 
   return (
-    <Box component='form' onSubmit={handleSubmit}>
+    <Box component='form' onSubmit={handleSignupSubmit}>
       <Box sx={styles.namesContainer}>
         <AppTextField
           autoFocus

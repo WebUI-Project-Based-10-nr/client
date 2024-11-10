@@ -15,6 +15,7 @@ interface PopupDialogProps {
   content: React.ReactNode
   paperProps: DialogProps['PaperProps']
   timerId: NodeJS.Timeout | null
+  closeOnly?: boolean
   closeModalAfterDelay: (delay?: number) => void
 }
 
@@ -22,7 +23,8 @@ const PopupDialog: FC<PopupDialogProps> = ({
   content,
   paperProps,
   timerId,
-  closeModalAfterDelay
+  closeModalAfterDelay,
+  closeOnly = false
 }) => {
   const { isMobile } = useBreakpoints()
   const [isConfirmDialogOpen, setConfirmDialogOpen] = useState(false)
@@ -58,7 +60,9 @@ const PopupDialog: FC<PopupDialogProps> = ({
           sx={styles.box}
         >
           <IconButton
-            onClick={() => setConfirmDialogOpen(true)}
+            onClick={() =>
+              closeOnly ? handleClose() : setConfirmDialogOpen(true)
+            }
             sx={styles.icon}
           >
             <CloseIcon />
@@ -66,13 +70,15 @@ const PopupDialog: FC<PopupDialogProps> = ({
           <Box sx={styles.contentWraper}>{content}</Box>
         </Box>
       </Dialog>
-      <ConfirmDialog
-        message={question.unsavedChanges}
-        onConfirm={handleConfirm}
-        onDismiss={handleDismiss}
-        open={isConfirmDialogOpen}
-        title={title.confirmTitle}
-      />
+      {!closeOnly && (
+        <ConfirmDialog
+          message={question.unsavedChanges}
+          onConfirm={handleConfirm}
+          onDismiss={handleDismiss}
+          open={isConfirmDialogOpen}
+          title={title.confirmTitle}
+        />
+      )}
     </>
   )
 }

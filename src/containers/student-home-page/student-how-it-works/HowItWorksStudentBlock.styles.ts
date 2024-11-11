@@ -1,7 +1,9 @@
 export const styles = {
   container: {
     flexDirection: 'column',
-    p: 4
+    pt: '64px',
+    pb: '28px',
+    px: '45px'
   },
   list: {
     display: 'flex',

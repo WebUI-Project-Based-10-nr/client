@@ -9,10 +9,11 @@ const HowItWorksStudentBlock = () => {
 
   const cards = howItWorksCards.map((item) => {
     return (
-      <Box key={item.title} sx={styles.container}>
+      <Box key={item.title} sx={styles.card}>
         <Box component='img' src={item.image} />
         <TitleWithDescription
           description={t(item.description)}
+          style={styles.cardTitleWithDescription}
           title={t(item.title)}
         />
       </Box>
@@ -26,7 +27,7 @@ const HowItWorksStudentBlock = () => {
         style={styles.titleWithDescription}
         title={t('studentHomePage.howItWorks.title')}
       />
-      {cards}
+      <Box sx={styles.list}>{cards}</Box>
     </Box>
   )
 }

@@ -17,6 +17,7 @@ const Bookmark: React.FC<BookmarkProps> = ({
 }) => {
   return (
     <IconButton
+      data-testid='bookmark-button'
       onClick={() => onBookmarkClick(id)}
       sx={{ ...styles.bookmarkButton, ...style }}
     >

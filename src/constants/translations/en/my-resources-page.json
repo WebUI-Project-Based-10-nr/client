@@ -19,6 +19,22 @@
     "successEditedQuestion":"Question was successfully edited",
     "successAddedQuestion":"Question was successfully added"
   },
+  "lessons": {
+    "addBtn": "New lesson",
+    "add": "Add Lessons",
+    "title": "Title",
+    "titleWithCategory": "Title & Category",
+    "attachments": "Attachments",
+    "attachmentsQuantity": "Attachments",
+    "attachmentQuantity": "Attachment",
+    "updated": "Last updates",
+    "emptyItems": "You have no lessons yet",
+    "confirmDeletionTitle": "Do you confirm lesson deletion?",
+    "successDeletion": "Lesson was deleted successfully",
+    "successDuplication": "Lesson was successfully duplicated",
+    "successEditedQuestion":"Lesson was successfully edited",
+    "successAddedQuestion":"Lesson was successfully added"
+  },
   "categories": {
     "category": "Category",
     "noCategory": "No category",
@@ -32,6 +48,13 @@
     "confirmDeletionTitle": "Do you confirm category deletion?",
     "categoryDropdown": "Category...",
     "selectCategory": "Select category"
+  },
+  "attachment": {
+    "add": "Add Attachments",
+    "file": "File",
+    "lastUpdate": "Last update",
+    "emptyItems": "You have no attachments yet"
+
   },
   "confirmDeletionMessage": "This action is permanent and will remove all related content. Please review your decision before proceeding."
 }

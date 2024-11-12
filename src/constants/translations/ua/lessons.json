@@ -1,0 +1,13 @@
+{
+  "labels": {
+    "title": "Без заголовка",
+    "description": "Опис...",
+    "attachments": "Вкладення"
+  },
+  "errorMessages": {
+    "title": "Будь ласка, вкажіть опис",
+    "description": "Будь ласка, вкажіть опис"
+  },
+  "successAddedLesson": "Урок був успішно створений",
+  "successEditedLesson": "Урок був успішно відредагований"
+}

@@ -19,6 +19,22 @@
     "successEditedQuestion":"Запитання було успішно відредаговано",
     "successAddedQuestion":"Запитання було успішно створено"
   },
+  "lessons": {
+    "addBtn": "Новий урок",
+    "add": "Додати урок",
+    "title": "Заголовок",
+    "titleWithCategory": "Заголовок & Категорія",
+    "attachments": "Файли",
+    "attachmentsQuantity": "Файил",
+    "attachmentQuantity": "Файл",
+    "updated": "Останнє оновлення",
+    "emptyItems": "У вас ще немає уроків",
+    "confirmDeletionTitle": "Ви підтверджуєте видалення запитання?",
+    "successDeletion": "Урок було успішно видалено",
+    "successDuplication": "Урок було успішно продубльовано",
+    "successEditedQuestion":"Урок було успішно відредаговано",
+    "successAddedQuestion":"Урок було успішно створено"
+  },
   "categories": {
     "category": "Категорія",
     "noCategory": "Без категорії",

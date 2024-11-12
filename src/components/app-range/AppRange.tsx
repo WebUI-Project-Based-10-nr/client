@@ -62,7 +62,7 @@ const AppRange: FC<AppRangeProps> = ({ min, max, value, onChange }) => {
     target
   }: React.ChangeEvent<HTMLInputElement>) => {
     const inputIndex = Number(target.id)
-    const inputValue = target.value ? Number(target.value) : null
+    const inputValue = target.value ? Number(target.value) : min
 
     if (checkRangeInput(inputValue)) {
       const newRange = createNewState({ range, inputValue, inputIndex })

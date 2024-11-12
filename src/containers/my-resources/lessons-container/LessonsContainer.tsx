@@ -83,9 +83,9 @@ const LessonsContainer = () => {
     []
   )
 
-  const editLesson = (id?: string) => {
+  const editLesson = useCallback((id?: string) => {
     navigate(createUrlPath(authRoutes.myResources.editLesson.path, id))
-  }
+  }, [])
 
   const props = {
     columns: columnsToShow,

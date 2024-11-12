@@ -17,7 +17,7 @@ interface OfferCardProps {
   isBookmarked: boolean
 }
 
-const OfferCardSquare: React.FC<OfferCardProps> = ({
+const OfferCardNarrow: React.FC<OfferCardProps> = ({
   offer,
   onBookmarkClick,
   isBookmarked
@@ -90,4 +90,4 @@ const OfferCardSquare: React.FC<OfferCardProps> = ({
   )
 }
 
-export default OfferCardSquare
+export default OfferCardNarrow

@@ -87,7 +87,7 @@ const LessonsContainer = () => {
     (id?: string) => {
       navigate(createUrlPath(authRoutes.myResources.editLesson.path, id))
     },
-    [navigate, createUrlPath]
+    [navigate]
   )
 
   const props = {

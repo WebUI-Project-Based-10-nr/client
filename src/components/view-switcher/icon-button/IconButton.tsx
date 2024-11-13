@@ -16,7 +16,14 @@ const IconButton: FC<IconButtonProps> = ({
   icon,
   value
 }) => (
-  <ToggleButton onClick={onClick} selected={selected} sx={styles} value={value}>
+  <ToggleButton
+    aria-selected={selected}
+    data-testid={`${value}-view`}
+    onClick={onClick}
+    selected={selected}
+    sx={styles}
+    value={value}
+  >
     {icon}
   </ToggleButton>
 )

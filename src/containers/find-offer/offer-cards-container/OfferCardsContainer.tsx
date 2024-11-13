@@ -2,10 +2,10 @@ import { FC } from 'react'
 import useBreakpoints from '~/hooks/use-breakpoints'
 import GridOffers from './grid-offers/GridOffers'
 import ListOffers from './list-offers/ListOffers'
-import { Offer } from '~/types'
+import { CardsViewMode, Offer } from '~/types'
 
 interface OfferCardsContainerProps {
-  viewMode: 'grid' | 'inline'
+  viewMode: CardsViewMode
   offers: Offer[]
 }
 

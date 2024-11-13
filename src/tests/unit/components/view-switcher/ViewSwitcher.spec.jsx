@@ -1,5 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/react'
-import '@testing-library/jest-dom'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import ViewSwitcher from '~/components/view-switcher/ViewSwitcher'
 
 describe('ViewSwitcher Component', () => {
@@ -35,27 +35,27 @@ describe('ViewSwitcher Component', () => {
     expect(gridButton).toHaveAttribute('aria-selected', 'true')
   })
 
-  test('clicking on "grid" button triggers onChange with "grid" when viewMode is "list"', () => {
+  test('clicking on "grid" button triggers onChange with "grid" when viewMode is "list"', async () => {
     renderComponent('list')
     const gridButton = screen.getByTestId('grid-view')
 
-    fireEvent.click(gridButton)
+    await userEvent.click(gridButton)
     expect(mockOnChange).toHaveBeenCalledWith('grid')
   })
 
-  test('clicking on "list" button triggers onChange with "list" when viewMode is "grid"', () => {
+  test('clicking on "list" button triggers onChange with "list" when viewMode is "grid"', async () => {
     renderComponent('grid')
     const listButton = screen.getByTestId('list-view')
 
-    fireEvent.click(listButton)
+    await userEvent.click(listButton)
     expect(mockOnChange).toHaveBeenCalledWith('list')
   })
 
-  test('clicking the button corresponding to current viewMode does not trigger onChange', () => {
+  test('clicking the button corresponding to current viewMode does not trigger onChange', async () => {
     renderComponent('list')
     const listButton = screen.getByTestId('list-view')
 
-    fireEvent.click(listButton)
+    await userEvent.click(listButton)
     expect(mockOnChange).not.toHaveBeenCalled()
   })
 })

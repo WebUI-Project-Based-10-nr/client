@@ -1,7 +1,7 @@
 export const styles = {
   appCard: {
     p: '30px 20px',
-    width: '100%',
+    my: '24px',
     display: 'flex',
     position: 'relative',
     gap: { sm: '24px', md: '40px' },

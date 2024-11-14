@@ -1,6 +1,6 @@
 export const styles = {
   appCard: {
-    width: '260px',
+    minHeight: '460px',
     padding: '24px 20px',
     position: 'relative',
     display: 'flex',
@@ -23,12 +23,6 @@ export const styles = {
     }
   },
 
-  cardContent: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '16px'
-  },
-
   description: {
     display: '-webkit-box',
     WebkitLineClamp: 2,
@@ -40,6 +34,13 @@ export const styles = {
     fontWeight: 600,
     color: 'primary.700',
     wordBreak: 'break-word'
+  },
+
+  cardContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
+    marginTop: 'auto'
   },
 
   priceContainer: {

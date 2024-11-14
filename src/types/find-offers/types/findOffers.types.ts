@@ -1,1 +1,1 @@
-export type CardsViewMode = 'inline' | 'grid'
+export type CardsViewMode = 'list' | 'grid'

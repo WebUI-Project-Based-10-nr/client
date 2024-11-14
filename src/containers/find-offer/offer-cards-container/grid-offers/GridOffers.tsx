@@ -8,7 +8,7 @@ interface GridOffersProps {
 }
 
 const GridOffers: React.FC<GridOffersProps> = ({ offers }) => (
-  <Box sx={styles.container}>
+  <Box data-testid='grid-offers' sx={styles.container}>
     {offers.map((offer) => {
       return (
         <OfferCardNarrow

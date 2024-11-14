@@ -7,7 +7,7 @@ interface ListOffersProps {
 }
 
 const ListOffers: React.FC<ListOffersProps> = ({ offers }) => (
-  <Box>
+  <Box data-testid='list-offers'>
     {offers.map((offer) => {
       return (
         <OfferCardWide

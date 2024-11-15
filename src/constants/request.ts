@@ -55,6 +55,7 @@ export const URLs = {
     },
     quizzes: {
       get: '/quizzes',
+      delete: '/quizzes',
       post: '/quizzes',
       patch: '/quizzes'
     }

@@ -90,7 +90,9 @@ export const ResourceService = {
     await axiosClient.patch(
       createUrlPath(URLs.resources.quizzes.patch, params?._id),
       params
-    )
+    ),
+  deleteQuiz: async (id: string): Promise<AxiosResponse> =>
+    await axiosClient.delete(createUrlPath(URLs.resources.quizzes.delete, id))
 }
 
 export const resourceService = appApi.injectEndpoints({

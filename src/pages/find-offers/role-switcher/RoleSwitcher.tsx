@@ -6,12 +6,12 @@ import { UserRole } from '~/types'
 import { styles } from './RoleSwitcher.styles'
 
 interface RoleSwitcherProps {
-  currentRole: '' | UserRole
+  currentOffersRole: '' | UserRole
   onChange: (role: '' | UserRole) => void
 }
 
 const RoleSwitcher: React.FC<RoleSwitcherProps> = ({
-  currentRole,
+  currentOffersRole,
   onChange
 }) => {
   const { t } = useTranslation()
@@ -30,13 +30,13 @@ const RoleSwitcher: React.FC<RoleSwitcherProps> = ({
   }
 
   const switchRole = () => {
-    const updatedRole = getOpositeRole(currentRole)
+    const updatedRole = getOpositeRole(currentOffersRole)
     onChange(updatedRole)
   }
 
   return (
     <AppContentSwitcher
-      active={currentRole === userRole}
+      active={currentOffersRole !== userRole}
       onChange={switchRole}
       styles={styles}
       switchOptions={translatedSwitcherOptions}

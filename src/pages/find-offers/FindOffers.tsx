@@ -7,6 +7,7 @@ import RoleSwitcher from '~/pages/find-offers/role-switcher/RoleSwitcher'
 import ViewSwitcher from '~/components/view-switcher/ViewSwitcher'
 import { CardsViewMode, UserRole } from '~/types'
 import { styles } from '~/pages/find-offers/FindOffers.styles'
+import { getOpositeRole } from '~/utils/helper-functions'
 
 const FindOffers = () => {
   const { userRole } = useAppSelector((state) => state.appMain)
@@ -14,14 +15,20 @@ const FindOffers = () => {
   const { isLaptopAndAbove } = useBreakpoints()
 
   const [viewMode, setViewMode] = useState<CardsViewMode>('list')
-  const [currentRole, setCurrentRole] = useState<UserRole | ''>(userRole)
+
+  const [currentOffersRole, setCurrentOffersRole] = useState<UserRole | ''>(
+    getOpositeRole(userRole)
+  )
 
   return (
     <PageWrapper>
       <Box sx={styles.container}>
         <Box sx={styles.right}>
           {isLaptopAndAbove && (
-            <RoleSwitcher currentRole={currentRole} onChange={setCurrentRole} />
+            <RoleSwitcher
+              currentOffersRole={currentOffersRole}
+              onChange={setCurrentOffersRole}
+            />
           )}
         </Box>
 

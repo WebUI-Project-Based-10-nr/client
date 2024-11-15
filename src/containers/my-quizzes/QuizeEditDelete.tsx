@@ -32,7 +32,7 @@ const DeleteAndEditQuize = () => {
   }
 
   {
-    /* Replace to right rout  to future Quize container*/
+    /* Replace to right route  to future Quize container*/
   }
   return <div {...props} />
 }
